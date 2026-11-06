@@ -689,12 +689,43 @@
     return ok;
   }
 
+  /** 클립보드 API → 안 되면 예전 방식. 성공 여부를 돌려줌 */
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      return copyFallback(text);
+    }
+  }
+
   function initCopyEmail() {
     const timers = new WeakMap();   // 안내 문구마다 타이머 하나 — 두 버튼을 연달아 눌러도 문구가 일찍 지워지지 않도록
+    const findStatus = (el) => $('.copy-status', el.closest('section') || el.parentElement);
+    const announce = (status, message, ms) => {
+      if (!status) return;
+      status.textContent = message;
+      clearTimeout(timers.get(status));
+      timers.set(status, setTimeout(() => { status.textContent = ''; }, ms));
+    };
+
+    // 메일 보내기(mailto): 메일 앱이 없는 PC에서도 막히지 않도록, 누르는 순간 주소를 복사해 두고 안내
+    // (휴대폰은 메일 앱이 확실히 열리므로 클립보드를 건드리지 않음)
+    $$('.mail-open').forEach((link) => {
+      const text = link.getAttribute('data-copy');
+      const status = findStatus(link);
+      link.addEventListener('click', async () => {
+        if (!hasFinePointer.matches) return;
+        const copied = await copyText(text);
+        announce(status, copied
+          ? '메일 앱을 엽니다.\n열리지 않으면 복사된 주소를 붙여 넣어 주세요.'
+          : '메일 앱을 엽니다.\n열리지 않으면 ' + text + ' 으로 보내 주세요.', 8000);
+      });
+    });
 
     $$('.copy-email').forEach((button) => {
       // 같은 섹션의 안내 문구 하나를 함께 씀 (큰 메일 주소 · 주소 복사 버튼)
-      const status = $('.copy-status', button.closest('section') || button.parentElement);
+      const status = findStatus(button);
       const text = button.getAttribute('data-copy');
       const icon = $('.bi-copy', button);
       let flashTimer = 0;
@@ -711,21 +742,12 @@
       }
 
       button.addEventListener('click', async () => {
-        let copied = false;
-        try {
-          await navigator.clipboard.writeText(text);
-          copied = true;
-        } catch (err) {
-          copied = copyFallback(text);
-        }
+        const copied = await copyText(text);
         if (copied) flash();
-        if (!status) return;
         // 실패하면 주소를 문구에 보여 줌 — 버튼 안 글자는 마우스로 선택하기 어려움
-        status.textContent = copied
+        announce(status, copied
           ? '이메일 주소를 복사했습니다.\n잘 부탁드립니다!'   // 줄바꿈은 사이드바에서만 적용 (CSS white-space)
-          : '복사하지 못했습니다.\n' + text;
-        clearTimeout(timers.get(status));
-        timers.set(status, setTimeout(() => { status.textContent = ''; }, copied ? 4000 : 10000));
+          : '복사하지 못했습니다.\n' + text, copied ? 4000 : 10000);
       });
     });
   }

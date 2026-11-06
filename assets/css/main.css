@@ -1569,6 +1569,7 @@ a.work-link:focus-visible .work-go {
 }
 
 .credits-roles {
+  text-wrap: balance;   /* 좁은 화면에서 두 줄이 되면 고르게 (역할 이름은 &nbsp;로 묶여 중간에서 끊기지 않음) */
   font-family: var(--font-mono);
   font-size: var(--fs-meta);
   letter-spacing: 0.14em;
