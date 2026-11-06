@@ -3,223 +3,175 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>동백커피 홍보영상 | 이영민 포트폴리오</title>
   <meta name="author" content="이영민">
-
-  <meta name="description" content="안녕하세요. 이영민입니다.">
-  <meta name="keywords" content="포트폴리오, html, css, js, 영상">
+  <meta name="description" content="이영민 포트폴리오 — 동백커피 홍보영상">
   <meta name="robots" content="noindex, nofollow">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>이영민 포트폴리오</title>
-  
+  <meta name="theme-color" content="#111419">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png?v=20261104">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Fonts: Pretendard -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/vendor/aos/aos.css">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
-<body class="index-page">
+<body>
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+  <a class="skip-link" href="#main">본문 바로가기</a>
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="./assets/img/logo.png" alt="">
-        <h1 class="sitename fleur-logo-lee">Yeongmin Lee</h1>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html#hero">Home<br></a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#resume">Resume</a></li>
-          <li><a href="index.html#portfolio class=active">Portfolio</a></li>
-          
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list-check"></i>
-      </nav>
-
-    </div>
+  <!-- Mobile top bar -->
+  <header class="topbar theme-dark">
+    <a class="brand-mini" href="index.html#home">이영민 <span>YEONGMIN LEE</span></a>
+    <button type="button" class="icon-btn menu-toggle" aria-controls="sidebar" aria-expanded="false">
+      <i class="bi bi-list" aria-hidden="true"></i>
+      <span class="visually-hidden">메뉴 열기</span>
+    </button>
   </header>
 
-  <main class="main">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar theme-dark" aria-label="사이트 메뉴">
+    <div class="sidebar-inner">
+      <button type="button" class="icon-btn sidebar-close">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+        <span class="visually-hidden">메뉴 닫기</span>
+      </button>
 
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-      <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Portfolio Details</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Portfolio Details</li>
-          </ol>
-        </nav>
+      <a class="brand" href="index.html#home">
+        <span class="brand-name">이영민</span>
+        <span class="brand-en">YEONGMIN LEE</span>
+      </a>
+      <p class="brand-role">Video Editing<br>&amp; Content Design</p>
+
+      <nav class="sidenav" aria-label="주요 메뉴">
+        <ol>
+          <li><a href="index.html#home"><span class="nav-num">01</span><span class="nav-label">Home</span></a></li>
+          <li><a href="index.html#works" class="is-active" aria-current="true"><span class="nav-num">02</span><span class="nav-label">Works</span></a></li>
+          <li><a href="index.html#about"><span class="nav-num">03</span><span class="nav-label">About</span></a></li>
+          <li><a href="index.html#skills"><span class="nav-num">04</span><span class="nav-label">Skills &amp; Background</span></a></li>
+          <li><a href="index.html#contact"><span class="nav-num">05</span><span class="nav-label">Contact</span></a></li>
+        </ol>
+      </nav>
+
+      <div class="sidebar-foot">
+        <span class="label">Email</span>
+        <a href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
       </div>
-    </div><!-- End Page Title -->
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" aria-hidden="true"></div>
 
-    <!-- Portfolio Details Section -->
-    <section id="portfolio-details" class="portfolio-details section">
+  <main id="main" class="main" tabindex="-1">
 
-      <div class="container" data-aos="fade-up">
+    <!-- 대표 비주얼 -->
+    <section class="work-hero theme-dark bg-works" aria-labelledby="work-title">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="현재 위치">
+          <a href="index.html#works">Works</a>
+          <span aria-hidden="true">/</span>
+          <span>Video Works</span>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">동백커피 홍보영상</span>
+        </nav>
 
-        <div class="portfolio-details-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 3000
-              },
-              "slidesPerView": "auto",
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              },
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper align-items-center">
+        <p class="eyebrow mt-4">Video Work 01</p>
+        <h1 id="work-title">동백커피 홍보영상</h1>
+        <p class="work-type">홍보영상</p>
 
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/app-1.jpg" alt="">
-            </div>
+        <!-- 영상 연결: data-youtube-id 에 YouTube 영상 ID(11자)를 넣으면 클릭 시 재생되는 플레이어가 표시됩니다. -->
+        <div class="media-frame" data-youtube-id="" data-mode="embed" data-title="동백커피 홍보영상">
+          <div class="media-placeholder"><i class="bi bi-camera-video" aria-hidden="true"></i><span>영상 준비 중</span></div>
+        </div>
+      </div>
+    </section>
 
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/product-1.jpg" alt="">
-            </div>
+    <!-- 프로젝트 정보 — 각 항목의 '작성 예정' 문단을 실제 내용으로 교체하세요 -->
+    <section class="work-body theme-light bg-about" aria-label="프로젝트 정보">
+      <div class="wrap">
 
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
+        <div class="work-block">
+          <h2>프로젝트 개요<span class="en">Overview</span></h2>
+          <div>
+            <!-- TODO: 프로젝트 개요 -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
           </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-pagination"></div>
         </div>
 
-        <!-- <div class="row justify-content-between gy-4 mt-4">
-
-          <div class="col-lg-6" data-aos="fade-up">
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio details</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-              <p>
-                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
-              </p>
-
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <div>
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                </div>
-              </div>
-
-              <p>
-                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
-              </p>
-
-              <p>
-                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
-              </p>
-
-            </div>
+        <div class="work-block">
+          <h2>제작 목적<span class="en">Purpose</span></h2>
+          <div>
+            <!-- TODO: 제작 목적 -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
           </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong> Web design</li>
-                <li><strong>Client</strong> ASU Company</li>
-                <li><strong>Project date</strong> 01 March, 2020</li>
-                <li><strong>Project URL</strong> <a href="#">www.example.com</a></li>
-                <li><a href="#" class="btn-visit align-self-start">Visit Website</a></li>
-              </ul>
-            </div>
-          </div>
-
         </div>
 
-      </div> -->
+        <div class="work-block">
+          <h2>담당 작업<span class="en">Role</span></h2>
+          <div>
+            <!-- TODO: 본인이 담당한 작업 -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
+          </div>
+        </div>
 
-    </section><!-- /Portfolio Details Section -->
+        <div class="work-block">
+          <h2>사용 도구<span class="en">Tools</span></h2>
+          <div>
+            <!-- TODO: 실제 사용한 도구. 예) <ul class="tool-list"><li>Premiere Pro</li></ul> -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
+          </div>
+        </div>
+
+        <div class="work-block">
+          <h2>제작 과정<span class="en">Process</span></h2>
+          <div>
+            <!-- TODO: 주요 제작 과정 (단계별 설명, 필요하면 과정 이미지 추가) -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
+          </div>
+        </div>
+
+        <div class="work-block">
+          <h2>최종 결과물<span class="en">Result</span></h2>
+          <div>
+            <!-- TODO: 최종 결과물 -->
+            <p class="is-pending">내용 작성 예정입니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 이전 / 다음 작업 -->
+    <nav class="work-pager theme-dark bg-sidebar" aria-label="다른 작업">
+      <div class="wrap">
+        <span></span>
+        <a class="pager-list" href="index.html#works"><i class="bi bi-grid" aria-hidden="true"></i><span>목록</span></a>
+        <a class="pager-next" href="portfolio-details-2.html"><span class="pager-label">Next <i class="bi bi-arrow-right" aria-hidden="true"></i></span><span class="pager-title">운무산맥 제품 광고영상</span></a>
+      </div>
+    </nav>
 
   </main>
 
-   <footer id="footer" class="footer accent-background">
+  <a href="#main" class="scroll-top" aria-label="맨 위로">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </a>
 
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">이영민</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <!-- <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
-      </div> -->
-      
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-bar-up"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- Vendor JS -->
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- Main JS File -->
+  <!-- Main JS -->
   <script src="assets/js/main.js"></script>
 
 </body>
 
 </html>
-

@@ -1,0 +1,21 @@
+# 개인정보가 포함된 원본 문서는 저장소에 올리지 않습니다.
+# (공개용으로 비공개 처리한 파일만 assets/img 에 둡니다)
+_private/
+private/
+*_원본*
+*-original.*
+*.original.*
+
+# 대용량 영상 원본 — 영상은 YouTube 임베드로 연결합니다.
+*.mp4
+*.mov
+*.mkv
+*.prproj
+*.aep
+
+# OS / 편집기
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.claude/
