@@ -115,7 +115,7 @@
    * Timeline — 스크롤 위치를 타임코드로 표시
    *  - 메뉴의 data-in(초)이 각 섹션의 시작 타임코드입니다.
    *  - 섹션 상단에 도착하면 정확히 그 값이 되고, 페이지 끝에서 00:01:00:00.
-   *  - 상세 페이지는 현재 메뉴(Works) 구간 안에서 진행합니다.
+   *  - 상세 페이지는 현재 메뉴(Works)의 시작 타임코드에 고정됩니다.
    * ------------------------------------------------------- */
   function formatTimecode(sec) {
     const frames = Math.max(0, Math.floor(sec * FPS + 1e-6));
@@ -246,10 +246,11 @@
           .filter((p) => p.y < maxScroll - 1);
         scrollPoints.push({ y: maxScroll, sec: END_SEC });
       } else {
+        // 상세 페이지: 스크롤과 관계없이 현재 메뉴(Works)의 시작 지점에 고정
+        // (진행시키면 페이지 끝에서 재생 헤드가 다음 메뉴 About에 닿아, 다른 곳으로 이동한 것처럼 보임)
         const current = markers.findIndex((m) => m.link.classList.contains('is-active'));
         const start = current >= 0 ? markers[current].sec : 0;
-        const end = current >= 0 && markers[current + 1] ? markers[current + 1].sec : END_SEC;
-        scrollPoints = [{ y: 0, sec: start }, { y: maxScroll, sec: end }];
+        scrollPoints = [{ y: 0, sec: start }, { y: maxScroll, sec: start }];
       }
 
       if (track && markers.length) {
