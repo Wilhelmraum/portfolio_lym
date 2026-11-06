@@ -512,6 +512,8 @@
 
     // 마우스를 멈춘 채 스크롤하면 커서가 엉뚱한 줄에 남지 않도록 숨김
     window.addEventListener('scroll', () => { if (visible) hide(); }, { passive: true });
+    // 작업을 눌러 이동했다가 '뒤로'로 돌아오면 페이지가 그대로 복원되어 커서가 남아 있을 수 있음
+    window.addEventListener('pagehide', hide);
   }
 
   /* ---------------------------------------------------------
@@ -522,11 +524,25 @@
     const sections = $$('[data-wipe]');
     if (!sections.length || reduceMotion.matches || !('IntersectionObserver' in window)) return;
 
+    // 전환이 끝나면 막과 overflow-x: clip을 모두 걷어냄
+    // (clip을 지원하지 않는 구형 Safari에서 오른쪽으로 밀려난 막 때문에 가로 스크롤이 생기지 않도록)
+    function cleanup(section) {
+      section.classList.remove('has-wipe', 'is-wiped');
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-wiped');
-        observer.unobserve(entry.target);
+        const section = entry.target;
+        section.classList.add('is-wiped');
+        observer.unobserve(section);
+        // 사진 색 전환 등 안쪽 요소의 transitionend도 올라오므로, 막(::before) 자신의 것만 받음
+        section.addEventListener('transitionend', function onEnd(e) {
+          if (e.target !== section || e.pseudoElement !== '::before') return;
+          section.removeEventListener('transitionend', onEnd);
+          cleanup(section);
+        });
+        setTimeout(() => cleanup(section), 1600);   // transitionend가 오지 않는 경우 대비
       });
     }, { rootMargin: '0px 0px -40% 0px' });
 
@@ -624,26 +640,43 @@
   /* ---------------------------------------------------------
    * Copy email
    * ------------------------------------------------------- */
+  /** 클립보드 API를 쓸 수 없을 때(권한 거부·구형 브라우저) 예전 방식으로 복사 */
+  function copyFallback(text) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+    body.appendChild(area);
+    area.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    area.remove();
+    return ok;
+  }
+
   function initCopyEmail() {
+    const timers = new WeakMap();   // 안내 문구마다 타이머 하나 — 두 버튼을 연달아 눌러도 문구가 일찍 지워지지 않도록
+
     $$('.copy-email').forEach((button) => {
       // 같은 섹션의 안내 문구 하나를 함께 씀 (큰 메일 주소 · 주소 복사 버튼)
       const status = $('.copy-status', button.closest('section') || button.parentElement);
-      let timer = 0;
+      const text = button.getAttribute('data-copy');
 
       button.addEventListener('click', async () => {
         let copied = false;
         try {
-          await navigator.clipboard.writeText(button.getAttribute('data-copy'));
+          await navigator.clipboard.writeText(text);
           copied = true;
         } catch (err) {
-          copied = false;
+          copied = copyFallback(text);
         }
         if (!status) return;
+        // 실패하면 주소를 문구에 보여 줌 — 버튼 안 글자는 마우스로 선택하기 어려움
         status.textContent = copied
           ? '이메일 주소를 복사했습니다.\n잘 부탁드립니다!'   // 줄바꿈은 사이드바에서만 적용 (CSS white-space)
-          : '복사하지 못했습니다. 주소를 직접 선택해 주세요.';
-        clearTimeout(timer);
-        timer = setTimeout(() => { status.textContent = ''; }, 4000);   // 문구가 길어져 조금 더 오래 표시
+          : '복사하지 못했습니다.\n' + text;
+        clearTimeout(timers.get(status));
+        timers.set(status, setTimeout(() => { status.textContent = ''; }, copied ? 4000 : 10000));
       });
     });
   }
