@@ -13,13 +13,14 @@ portfolio-details-3.html    V03 브랜드 스토리텔링 광고영상 (완성 �
 portfolio-details-4.html    D01 캐릭터 디자인
 portfolio-details-5.html    D02 Figma 앱 UI 디자인
 portfolio-details-6.html    D03 제품 상세페이지 디자인
+404.html                    없는 주소로 들어왔을 때 'NO SIGNAL' 화면 (스타일 내장, 절대 주소 사용)
 assets/css/main.css         디자인 토큰(색상·서체·간격)과 전체 스타일
 assets/js/main.js           메뉴, 타임코드, 등장 효과, 미리보기, YouTube 연결
 assets/img/                 프로필·파비콘·확인서(개인정보 비공개 처리본)·공유 이미지(og-image.png)
 assets/vendor/              Bootstrap Icons
 ```
 
-모든 페이지는 같은 틀(상단 바 · 사이드바 · 본문 · 푸터)을 공유합니다.
+모든 페이지는 같은 틀(상단 바 · 사이드바 · 본문 · 푸터)을 공유합니다. (404.html은 따로 독립된 파일)
 사이드바나 푸터를 고칠 때는 7개 HTML 파일을 함께 수정해야 합니다.
 
 ## 콘텐츠 넣는 방법
@@ -33,6 +34,8 @@ assets/vendor/              Bootstrap Icons
 - **쇼릴**: `index.html`의 `#home`에 있는 `data-showreel-id`에 ID를 넣으면 'Showreel' 버튼이 나타납니다.
   배경 루프 영상은 `.hero-media` 안의 `<video>` 주석을 풀어 사용합니다(짧고 가벼운 파일 권장).
 - **상세 설명**: 각 상세 페이지의 `<!-- TODO -->` 아래 '내용 작성 예정' 문단을 바꿉니다.
+- **페이지 전환**: 목록의 작업 이름(`.work-name`)과 상세 페이지 제목(`h1`)에 같은 `view-transition-name`(예: `work-v01`)이 있어 이름이 이어지듯 옮겨 갑니다.
+  V03을 공개하거나 작업을 추가할 때는 두 곳에 같은 이름(`work-v03` 등)을 붙입니다. 페이지마다 이름이 겹치면 안 됩니다.
 - **엔딩 크레딧 (Contact)**: `index.html`의 `.credits` 안에서 `<div class="credit"><dt>역할</dt><dd>이름</dd></div>` 한 줄이 크레딧 한 줄입니다. 줄을 더하거나 빼도 등장 순서가 자동으로 맞춰집니다.
 - **공유 미리보기 (OG)**: 모든 페이지의 `<head>`에 `og:*` 태그가 있습니다. 링크를 카카오톡·메일·SNS에 붙이면 `assets/img/og-image.png`(1200×630)가 썸네일로 표시됩니다.
   - `og:url`과 `og:image`는 배포 주소(`https://wilhelmraum.github.io/portfolio_lym/`) 기준의 절대 주소입니다. 주소가 바뀌면 7개 파일을 함께 고칩니다.

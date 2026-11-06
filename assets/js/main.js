@@ -5,6 +5,7 @@
  * 각 함수는 필요한 요소가 페이지에 없으면 아무것도 하지 않으므로
  * index.html과 상세 페이지에서 같은 파일을 그대로 씁니다.
  *
+ *  initFontGate       서체가 준비되면 첫 화면 애니메이션 시작
  *  initNavDrawer      모바일 메뉴 열기·닫기
  *  initTimeline       스크롤 위치를 60초 영상의 타임코드로 표시 (사이드바 파형 · 상단 바 · Home 모니터)
  *  initAboutPhoto     프로필 사진이 고정되어 있는 동안만 컬러
@@ -16,7 +17,8 @@
  *  initVideoEmbeds    상세 페이지 YouTube 플레이어
  *  initShowreel       쇼릴 다이얼로그
  *  initCopyEmail      이메일 주소 복사
- *  initScrollTop      맨 위로 버튼
+ *  initScrollTop      맨 위로 버튼 (테두리에 페이지 진행 링)
+ *  initTabTitle       다른 탭으로 가면 탭 제목을 '일시정지'로
  */
 (function () {
   'use strict';
@@ -71,6 +73,23 @@
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';
     return iframe;
+  }
+
+  /* ---------------------------------------------------------
+   * Font gate — 첫 화면 문구에 쓰는 서체가 준비되면 애니메이션 시작
+   *  index.html의 인라인 스크립트가 붙인 .is-loading을 뗍니다. (없으면 아무것도 안 함)
+   * ------------------------------------------------------- */
+  function initFontGate() {
+    if (!root.classList.contains('is-loading')) return;
+    const release = () => root.classList.remove('is-loading');
+    if (!document.fonts || !document.fonts.load) { release(); return; }
+
+    const hero = $('.hero-statement');
+    const sample = hero ? hero.textContent.replace(/\s+/g, '') : '가';   // 문구에 실제로 쓰인 글자만 불러옴
+    Promise.all([
+      document.fonts.load('650 1em "Pretendard Variable"', sample),
+      document.fonts.load('400 1em "JetBrains Mono"', '0123456789:')
+    ]).then(release, release);
   }
 
   /* ---------------------------------------------------------
@@ -343,6 +362,9 @@
   function initWorkReveal() {
     const lists = $$('.work-list');
     if (!lists.length || reduceMotion.matches || !('IntersectionObserver' in window)) return;
+    // 상세 페이지의 '목록'으로 돌아온 경우(#works): 목록을 바로 보여 줌
+    // — 숨겨 두면 페이지 전환으로 옮겨 오는 작업 이름이 보이지 않는 자리에 내려앉음
+    if (location.hash === '#works') return;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -508,6 +530,7 @@
       // 스크롤로 숨겨진 뒤 같은 줄 안에서 마우스를 움직이면 다시 표시
       row.addEventListener('pointermove', (e) => (visible ? follow(e) : show(e)));
       row.addEventListener('pointerleave', hide);
+      row.addEventListener('click', hide);   // 페이지 전환 화면에 커서가 찍혀 넘어가지 않도록
     });
 
     // 마우스를 멈춘 채 스크롤하면 커서가 엉뚱한 줄에 남지 않도록 숨김
@@ -661,6 +684,19 @@
       // 같은 섹션의 안내 문구 하나를 함께 씀 (큰 메일 주소 · 주소 복사 버튼)
       const status = $('.copy-status', button.closest('section') || button.parentElement);
       const text = button.getAttribute('data-copy');
+      const icon = $('.bi-copy', button);
+      let flashTimer = 0;
+
+      // 복사 완료 표시: 2초간 강조색, 복사 아이콘은 체크로
+      function flash() {
+        button.classList.add('is-copied');
+        if (icon) icon.className = 'bi bi-check2';
+        clearTimeout(flashTimer);
+        flashTimer = setTimeout(() => {
+          button.classList.remove('is-copied');
+          if (icon) icon.className = 'bi bi-copy';
+        }, 2000);
+      }
 
       button.addEventListener('click', async () => {
         let copied = false;
@@ -670,6 +706,7 @@
         } catch (err) {
           copied = copyFallback(text);
         }
+        if (copied) flash();
         if (!status) return;
         // 실패하면 주소를 문구에 보여 줌 — 버튼 안 글자는 마우스로 선택하기 어려움
         status.textContent = copied
@@ -682,14 +719,43 @@
   }
 
   /* ---------------------------------------------------------
+   * Tab title — 다른 탭으로 가면 '일시정지', 돌아오면 원래 제목
+   * ------------------------------------------------------- */
+  function initTabTitle() {
+    const original = document.title;
+    document.addEventListener('visibilitychange', () => {
+      document.title = document.hidden ? '⏸ 일시정지 — 이영민' : original;
+    });
+  }
+
+  /* ---------------------------------------------------------
    * Scroll top
    * ------------------------------------------------------- */
   function initScrollTop() {
     const button = $('.scroll-top');
     if (!button) return;
 
-    const update = () => button.classList.toggle('is-visible', window.scrollY > 600);
+    // 테두리를 따라 페이지 진행률을 강조색 원으로 표시 — 모바일에서 타임라인 역할을 대신함
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const ring = document.createElementNS(SVG_NS, 'svg');
+    ring.setAttribute('class', 'scroll-ring');
+    ring.setAttribute('viewBox', '0 0 44 44');
+    ring.setAttribute('aria-hidden', 'true');
+    const arc = document.createElementNS(SVG_NS, 'circle');
+    arc.setAttribute('cx', '22');
+    arc.setAttribute('cy', '22');
+    arc.setAttribute('r', '21.25');
+    arc.setAttribute('pathLength', '1');   // 둘레를 1로 두고 dashoffset으로 진행률 표시
+    ring.appendChild(arc);
+    button.appendChild(ring);
+
+    const update = () => {
+      button.classList.toggle('is-visible', window.scrollY > 600);
+      const progress = Math.min(1, Math.max(0, window.scrollY / getMaxScroll()));
+      arc.style.strokeDashoffset = (1 - progress).toFixed(4);
+    };
     window.addEventListener('scroll', onFrame(update), { passive: true });
+    window.addEventListener('resize', onFrame(update));
     update();
 
     button.addEventListener('click', (e) => {
@@ -701,6 +767,10 @@
   /* ---------------------------------------------------------
    * Run
    * ------------------------------------------------------- */
+  // iOS Safari는 터치 리스너가 하나라도 있어야 :active 스타일(터치 반응)을 적용함
+  document.addEventListener('touchstart', () => {}, { passive: true });
+
+  initFontGate();
   initNavDrawer();
   initTimeline();
   initAboutPhoto();
@@ -713,4 +783,5 @@
   initShowreel();
   initCopyEmail();
   initScrollTop();
+  initTabTitle();
 })();

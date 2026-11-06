@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NO SIGNAL — 이영민</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#111419">
+
+  <!--
+    GitHub Pages는 없는 주소(예: /portfolio_lym/abc/def)에 이 파일을 그대로 보여 줍니다.
+    그래서 상대 경로가 깨지지 않도록 스타일은 이 파일 안에 두고, 이미지·링크는 절대 주소를 씁니다.
+  -->
+  <link rel="icon" type="image/png" href="https://wilhelmraum.github.io/portfolio_lym/assets/img/favicon.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <style>
+    /* main.css와 같은 디자인 토큰 */
+    :root {
+      --c-sidebar: #111419;
+      --c-home: #14171B;
+      --c-letterbox: #0B0D10;
+      --c-ink: #F6F3ED;
+      --c-muted: #B6BDC2;
+      --c-accent: #D8AC73;
+      --c-rec: #E5484D;
+      --line: rgba(246, 243, 237, 0.12);
+      --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --font-serif: "Instrument Serif", "Times New Roman", serif;
+      --gutter: clamp(1.25rem, 0.6rem + 3vw, 3.5rem);
+      --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background: var(--c-home);
+      color: var(--c-ink);
+      font-family: var(--font-sans);
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+
+    /* 레터박스 바 */
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      min-height: clamp(64px, 11vh, 112px);
+      padding: 16px var(--gutter);
+      background: var(--c-letterbox);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--c-muted);
+    }
+
+    .bar--top { border-bottom: 1px solid var(--line); }
+    .bar--bottom { border-top: 1px solid var(--line); }
+
+    .id { display: flex; align-items: baseline; gap: 12px; font-family: var(--font-sans); }
+    .id strong { font-size: 1.25rem; font-weight: 700; color: var(--c-ink); letter-spacing: -0.02em; }
+    .id em { font-family: var(--font-serif); font-size: 1.125rem; color: var(--c-muted); }
+
+    /* 화면 — 흐린 컬러 바(방송 대기 화면) 위에 모니터 표시 */
+    .frame {
+      position: relative;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(5rem, 12vh, 8rem) var(--gutter);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .colorbars {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      opacity: 0.13;
+    }
+
+    .colorbars span:nth-child(1) { background: #C0C0C0; }
+    .colorbars span:nth-child(2) { background: #C0C000; }
+    .colorbars span:nth-child(3) { background: #00C0C0; }
+    .colorbars span:nth-child(4) { background: #00C000; }
+    .colorbars span:nth-child(5) { background: #C000C0; }
+    .colorbars span:nth-child(6) { background: #C00000; }
+    .colorbars span:nth-child(7) { background: #0000C0; }
+
+    /* 아래로 갈수록 어둡게 — 글자가 묻히지 않도록 */
+    .frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, rgba(20, 23, 27, 0.55), rgba(20, 23, 27, 0.92) 75%);
+    }
+
+    .monitor {
+      position: absolute;
+      inset: clamp(14px, 2.4vh, 28px) clamp(14px, 2vw, 32px);
+      display: flex;
+      align-items: flex-start;   /* 상태 표시를 위쪽 모서리에 */
+      justify-content: space-between;
+      padding: 16px 20px;
+      pointer-events: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--c-muted);
+    }
+
+    .corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 0 solid rgba(246, 243, 237, 0.5);
+    }
+
+    .corner--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+    .corner--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+    .corner--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+    .corner--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .rec { display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0.12em; color: var(--c-ink); }
+    .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c-rec); opacity: 0.35; }
+
+    .center { text-align: center; }
+
+    .viola {
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 28px;
+      border-radius: 10px;
+      image-rendering: pixelated;
+    }
+
+    .tc {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: clamp(1rem, 0.85rem + 0.6vw, 1.375rem);
+      letter-spacing: 0.04em;
+      color: var(--c-muted);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-family: var(--font-mono);
+      font-size: clamp(2.25rem, 1.25rem + 4.5vw, 5rem);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      padding-left: 0.18em;   /* 자간만큼 오른쪽으로 치우치지 않게 */
+    }
+
+    .msg {
+      margin: 22px 0 0;
+      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      line-height: 1.7;
+      color: var(--c-muted);
+    }
+
+    .home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      margin-top: 32px;
+      padding: 0 22px;
+      border: 1px solid rgba(246, 243, 237, 0.28);
+      border-radius: 2px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: color 0.35s var(--ease), border-color 0.35s var(--ease);
+    }
+
+    .home:hover,
+    .home:active { color: var(--c-accent); border-color: var(--c-accent); }
+
+    .home svg { width: 14px; height: 14px; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* 신호를 찾는 듯 타임코드와 NO SIGNAL이 느리게 깜빡임 */
+      .tc, h1 { animation: search 2.4s steps(1) infinite; }
+      h1 { animation-delay: 0.6s; }
+      .rec-dot { animation: search 1.2s steps(1) infinite; }
+    }
+
+    @keyframes search {
+      0%   { opacity: 1; }
+      85%  { opacity: 0.45; }
+    }
+
+    @media (max-width: 575.98px) {
+      .monitor { padding: 12px 14px; }
+      .spec { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="bar bar--top">
+    <span>Video Editing &amp; Content Design</span>
+    <span>Error 404</span>
+  </header>
+
+  <main class="frame">
+    <div class="colorbars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="monitor" aria-hidden="true">
+      <span class="corner corner--tl"></span>
+      <span class="corner corner--tr"></span>
+      <span class="corner corner--bl"></span>
+      <span class="corner corner--br"></span>
+      <span class="rec"><span class="rec-dot"></span>NO INPUT</span>
+      <span class="spec">1080p · 24fps</span>
+    </div>
+
+    <div class="center">
+      <img class="viola" src="https://wilhelmraum.github.io/portfolio_lym/assets/img/apple-touch-icon.png" alt="" width="64" height="64">
+      <p class="tc" aria-hidden="true">--:--:--:--</p>
+      <h1>NO SIGNAL</h1>
+      <p class="msg">찾으시는 페이지가 없거나 주소가 바뀌었습니다.</p>
+      <a class="home" href="https://wilhelmraum.github.io/portfolio_lym/" data-home>
+        처음부터 재생
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
+      </a>
+    </div>
+  </main>
+
+  <footer class="bar bar--bottom">
+    <span class="id"><strong>이영민</strong><em>Yeongmin Lee</em></span>
+    <span>00:00:00:00 — Standby</span>
+  </footer>
+
+  <script>
+    // 로컬에서 미리 볼 때는 배포 주소 대신 로컬 첫 페이지로
+    if (!/github\.io$/.test(location.hostname)) {
+      document.querySelector('[data-home]').setAttribute('href', '/index.html');
+    }
+  </script>
+
+</body>
+
+</html>
