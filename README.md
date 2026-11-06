@@ -15,7 +15,7 @@ portfolio-details-5.html    D02 Figma 앱 UI 디자인
 portfolio-details-6.html    D03 제품 상세페이지 디자인
 assets/css/main.css         디자인 토큰(색상·서체·간격)과 전체 스타일
 assets/js/main.js           메뉴, 타임코드, 등장 효과, 미리보기, YouTube 연결
-assets/img/                 프로필·파비콘·확인서(개인정보 비공개 처리본)
+assets/img/                 프로필·파비콘·확인서(개인정보 비공개 처리본)·공유 이미지(og-image.png)
 assets/vendor/              Bootstrap Icons
 ```
 
@@ -33,11 +33,16 @@ assets/vendor/              Bootstrap Icons
 - **쇼릴**: `index.html`의 `#home`에 있는 `data-showreel-id`에 ID를 넣으면 'Showreel' 버튼이 나타납니다.
   배경 루프 영상은 `.hero-media` 안의 `<video>` 주석을 풀어 사용합니다(짧고 가벼운 파일 권장).
 - **상세 설명**: 각 상세 페이지의 `<!-- TODO -->` 아래 '내용 작성 예정' 문단을 바꿉니다.
+- **공유 미리보기 (OG)**: 모든 페이지의 `<head>`에 `og:*` 태그가 있습니다. 링크를 카카오톡·메일·SNS에 붙이면 `assets/img/og-image.png`(1200×630)가 썸네일로 표시됩니다.
+  - `og:url`과 `og:image`는 배포 주소(`https://wilhelmraum.github.io/portfolio_lym/`) 기준의 절대 주소입니다. 주소가 바뀌면 7개 파일을 함께 고칩니다.
+  - 작업 영상이 생기면 상세 페이지의 `og:image`를 해당 작업의 대표 이미지로 바꾸면 더 좋습니다.
+  - 카카오톡은 미리보기를 오래 저장해 둡니다. 이미지를 바꾼 뒤에는 [카카오 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 캐시를 초기화합니다.
 
 ## 타임코드 콘셉트
 
 사이트 전체를 한 편의 60초 영상으로 보고, 사이드바를 편집 타임라인처럼 표시합니다.
 메뉴의 `data-in`(초)이 각 섹션의 시작 타임코드이며, 스크롤에 따라 재생 헤드와 타임코드(24fps)가 움직입니다.
+Home은 편집 프로그램의 프로그램 모니터처럼 연출합니다(`.monitor`). 하단 재생 바(`data-tc-scrub`)도 같은 타임코드로 움직이고, 섹션 시작 지점 눈금은 `data-in` 값으로 자동 생성됩니다.
 섹션을 추가하거나 순서를 바꾸면 `data-in` 값과 각 섹션 제목 위 `.meta-label`의 타임코드를 함께 맞춰 주세요.
 
 ## 코드 규칙

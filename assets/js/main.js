@@ -6,7 +6,7 @@
  * index.html과 상세 페이지에서 같은 파일을 그대로 씁니다.
  *
  *  initNavDrawer      모바일 메뉴 열기·닫기
- *  initTimeline       스크롤 위치를 60초 영상의 타임코드로 표시
+ *  initTimeline       스크롤 위치를 60초 영상의 타임코드로 표시 (사이드바 파형 · 상단 바 · Home 모니터)
  *  initAboutPhoto     프로필 사진이 고정되어 있는 동안만 컬러
  *  initWorkReveal     Works 목록 등장 효과
  *  initWorkPreview    Works 목록 마우스 미리보기
@@ -137,6 +137,52 @@
     return points[points.length - 1][outKey];
   }
 
+  /* ---------------------------------------------------------
+   * Waveform — 타임라인 트랙을 오디오 파형으로 그림
+   *  - 음악처럼 처음과 끝은 작고 가운데는 크며, 섹션이 바뀌는 지점(컷)에서 잠깐 잦아듭니다.
+   *  - 같은 타임코드에서는 항상 같은 모양이 나오므로 페이지를 옮겨도 파형이 그대로입니다.
+   * ------------------------------------------------------- */
+  const WAVE_STEP = 3;   // 막대 간격(px)
+  const WAVE_BAR = 2;    // 막대 두께(px)
+
+  function waveAmp(sec, cuts) {
+    const t = Math.min(1, Math.max(0, sec / END_SEC));
+    let a = 0.3 + 0.7 * Math.sqrt(Math.sin(Math.PI * t));
+    cuts.forEach((c) => { a *= 1 - 0.75 * Math.exp(-Math.pow((sec - c) / 0.9, 2)); });
+    const h = Math.sin(Math.floor(sec * 4) * 12.9898 + 78.233) * 43758.5453;
+    const noise = h - Math.floor(h);
+    const swell = 0.5 + 0.5 * Math.sin(sec * 0.9) * Math.sin(sec * 2.3);
+    return Math.max(0.1, a * (0.35 + 0.4 * noise + 0.25 * swell));
+  }
+
+  function paintWave(canvas, points) {
+    const w = canvas.clientWidth;
+    const top = points[0].y;
+    const h = Math.round(points[points.length - 1].y - top);
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const color = getComputedStyle(canvas.parentElement).color;
+    const key = [w, h, dpr, color].join('|');
+    if (!w || h <= 0 || canvas.dataset.key === key) return;   // 크기·색이 같으면 다시 그리지 않음
+    canvas.dataset.key = key;
+
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.height = h + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = color;
+
+    const cuts = points.slice(1, -1).map((p) => p.sec);
+    const mid = w / 2;
+    for (let y = 0; y + WAVE_BAR <= h; y += WAVE_STEP) {
+      const sec = interpolate(points, 'y', top + y + WAVE_BAR / 2, 'sec');
+      const half = Math.max(0.5, waveAmp(sec, cuts) * mid);
+      ctx.fillRect(mid - half, y, half * 2, WAVE_BAR);
+    }
+  }
+
   function initTimeline() {
     const outputs = $$('[data-tc-live]');
     const markers = $$('.timeline a[data-in]').map((link) => {
@@ -153,7 +199,31 @@
     const fill = $('.timeline-fill');
     const playhead = $('.playhead');
     const progress = $('.topbar-progress');
+    const scrubs = $$('[data-tc-scrub]');   // Home 모니터 재생 바
     const onIndex = markers.some((m) => m.section);
+
+    // 재생 바에 섹션 시작 지점 표시
+    scrubs.forEach((scrub) => {
+      markers.forEach((m) => {
+        if (m.sec <= 0 || m.sec >= END_SEC) return;
+        const tick = document.createElement('i');
+        tick.className = 'monitor-tick';
+        tick.style.setProperty('--at', (m.sec / END_SEC).toFixed(4));
+        scrub.appendChild(tick);
+      });
+    });
+
+    // 트랙 = 회색 파형, 재생된 구간(fill) = 강조색 파형. fill의 높이만큼만 보입니다.
+    let waves = [];
+    if (track && fill && markers.length && document.createElement('canvas').getContext) {
+      waves = [track, fill].map((parent) => {
+        const canvas = document.createElement('canvas');
+        canvas.className = 'timeline-wave';
+        parent.prepend(canvas);
+        return canvas;
+      });
+      track.classList.add('has-wave');
+    }
 
     let scrollPoints = [];   // [{ y: scrollY, sec }]
     let trackPoints = [];    // [{ sec, y: 트랙 안의 px }]
@@ -188,6 +258,7 @@
         const top = trackPoints[0].y;
         track.style.top = top + 'px';
         track.style.height = (trackPoints[trackPoints.length - 1].y - top) + 'px';
+        waves.forEach((canvas) => paintWave(canvas, trackPoints));
       }
     }
 
@@ -195,7 +266,9 @@
       const sec = interpolate(scrollPoints, 'y', window.scrollY, 'sec');
       const tc = formatTimecode(sec);
       outputs.forEach((el) => { if (el.textContent !== tc) el.textContent = tc; });
-      if (progress) progress.style.transform = 'scaleX(' + (sec / END_SEC).toFixed(4) + ')';
+      const ratio = (sec / END_SEC).toFixed(4);
+      if (progress) progress.style.transform = 'scaleX(' + ratio + ')';
+      scrubs.forEach((el) => el.style.setProperty('--p', ratio));
 
       if (trackPoints.length) {
         const y = interpolate(trackPoints, 'sec', sec, 'y') - trackPoints[0].y;

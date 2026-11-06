@@ -10,6 +10,19 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#111419">
 
+  <!-- 공유 미리보기 (카카오톡·메일·SNS) — og:url·og:image는 절대 주소로 씁니다 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="이영민 포트폴리오">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="이영민 — Video Editing &amp; Content Design">
+  <meta property="og:description" content="아이디어를 영상으로, 이야기를 콘텐츠로. 음악으로 익힌 리듬과 호흡을 바탕으로 영상을 편집하고 콘텐츠를 디자인합니다.">
+  <meta property="og:url" content="https://wilhelmraum.github.io/portfolio_lym/">
+  <meta property="og:image" content="https://wilhelmraum.github.io/portfolio_lym/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="이영민 포트폴리오 — 아이디어를 영상으로, 이야기를 콘텐츠로.">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
@@ -99,6 +112,27 @@
           </video>
           -->
         </div>
+
+        <!-- 프로그램 모니터 오버레이 (장식): 세이프 에어리어 · 상태 표시 · 스크롤과 연동되는 재생 바 -->
+        <div class="monitor" aria-hidden="true">
+          <span class="monitor-corner monitor-corner--tl"></span>
+          <span class="monitor-corner monitor-corner--tr"></span>
+          <span class="monitor-corner monitor-corner--bl"></span>
+          <span class="monitor-corner monitor-corner--br"></span>
+          <div class="monitor-top">
+            <span class="monitor-rec"><span class="monitor-rec-dot"></span>REC</span>
+            <span class="monitor-spec">1080p · 24fps</span>
+          </div>
+          <div class="monitor-transport">
+            <span class="monitor-tc" data-tc-live>00:00:00:00</span>
+            <span class="monitor-scrub" data-tc-scrub>
+              <span class="monitor-scrub-fill"></span>
+              <span class="monitor-scrub-head"></span>
+            </span>
+            <span class="monitor-end">00:01:00:00</span>
+          </div>
+        </div>
+
         <div class="wrap hero-statement">
           <p>
             <span class="hero-line">아이디어를 영상으로,</span>
