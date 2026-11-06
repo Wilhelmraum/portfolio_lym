@@ -14,14 +14,16 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts: Pretendard -->
+  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·메타 정보) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
   <!-- Vendor CSS -->
   <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/vendor/aos/aos.css">
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
@@ -33,14 +35,16 @@
 
   <!-- Mobile top bar -->
   <header class="topbar theme-dark">
-    <a class="brand-mini" href="#home">이영민 <span>YEONGMIN LEE</span></a>
+    <a class="brand-mini" href="#home">이영민 <span>Yeongmin Lee</span></a>
+    <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:00:00</span></div>
     <button type="button" class="icon-btn menu-toggle" aria-controls="sidebar" aria-expanded="false">
       <i class="bi bi-list" aria-hidden="true"></i>
       <span class="visually-hidden">메뉴 열기</span>
     </button>
+    <span class="topbar-progress" aria-hidden="true"></span>
   </header>
 
-  <!-- Sidebar -->
+  <!-- Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 -->
   <aside id="sidebar" class="sidebar theme-dark" aria-label="사이트 메뉴">
     <div class="sidebar-inner">
       <button type="button" class="icon-btn sidebar-close">
@@ -50,23 +54,27 @@
 
       <a class="brand" href="#home">
         <span class="brand-name">이영민</span>
-        <span class="brand-en">YEONGMIN LEE</span>
+        <span class="brand-en">Yeongmin Lee</span>
       </a>
       <p class="brand-role">Video Editing<br>&amp; Content Design</p>
 
-      <nav class="sidenav" aria-label="주요 메뉴">
+      <nav class="timeline" aria-label="주요 메뉴">
+        <div class="timeline-track" aria-hidden="true">
+          <span class="timeline-fill"></span>
+          <span class="playhead"></span>
+        </div>
         <ol>
-          <li><a href="#home"><span class="nav-num">01</span><span class="nav-label">Home</span></a></li>
-          <li><a href="#works"><span class="nav-num">02</span><span class="nav-label">Works</span></a></li>
-          <li><a href="#about"><span class="nav-num">03</span><span class="nav-label">About</span></a></li>
-          <li><a href="#skills"><span class="nav-num">04</span><span class="nav-label">Skills &amp; Background</span></a></li>
-          <li><a href="#contact"><span class="nav-num">05</span><span class="nav-label">Contact</span></a></li>
+          <li><a href="#home" data-in="0"><span class="tc">00:00:00:00</span><span class="nav-label">Home</span></a></li>
+          <li><a href="#works" data-in="8"><span class="tc">00:00:08:00</span><span class="nav-label">Works</span></a></li>
+          <li><a href="#about" data-in="32"><span class="tc">00:00:32:00</span><span class="nav-label">About</span></a></li>
+          <li><a href="#skills" data-in="44"><span class="tc">00:00:44:00</span><span class="nav-label">Skills &amp; Background</span></a></li>
+          <li><a href="#contact" data-in="54"><span class="tc">00:00:54:00</span><span class="nav-label">Contact</span></a></li>
         </ol>
       </nav>
 
       <div class="sidebar-foot">
-        <span class="label">Email</span>
-        <a href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
+        <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:00:00</span></div>
+        <a class="sidebar-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
       </div>
     </div>
   </aside>
@@ -77,167 +85,132 @@
     <!-- ========================= HOME ========================= -->
     <!--
       쇼릴 연결 방법
-      1) 배경 루프 영상(무음, 짧은 클립): 아래 .hero-media 안의 <video> 주석을 해제하고 실제 파일 경로를 넣으세요.
-         파일이 준비되기 전에는 이미지(hero-bg.jpg)가 대신 표시됩니다.
-      2) 전체 쇼릴(YouTube): data-showreel-id 에 YouTube 영상 ID(11자)를 넣으면 'Showreel 재생' 버튼이 나타납니다.
+      1) 배경 루프 영상(무음, 짧은 클립): .hero-media 안의 <video> 주석을 해제하고 실제 파일 경로를 넣으세요.
+      2) 전체 쇼릴(YouTube): data-showreel-id 에 YouTube 영상 ID(11자)를 넣으면 'Showreel' 버튼이 나타납니다.
     -->
     <section id="home" class="hero theme-dark bg-home" data-showreel-id="" aria-labelledby="home-title">
-      <div class="hero-media" aria-hidden="true">
-        <!--
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-bg.jpg">
-          <source src="assets/video/showreel-loop.mp4" type="video/mp4">
-        </video>
-        -->
-        <img src="assets/img/hero-bg.jpg" alt="" width="1920" height="1280" fetchpriority="high">
-      </div>
-
-      <div class="wrap hero-content">
-        <p class="eyebrow" data-aos="fade-up">Video Editing &amp; Content Design</p>
-        <h1 id="home-title" class="hero-name" data-aos="fade-up" data-aos-delay="80">
-          이영민
-          <span class="hero-name-en">YEONGMIN LEE</span>
-        </h1>
-        <p class="hero-lead" data-aos="fade-up" data-aos-delay="160">
-          아이디어를 <em>영상</em>으로,<br>
-          이야기를 <em>콘텐츠</em>로.
-        </p>
-        <div class="hero-actions" data-aos="fade-up" data-aos-delay="240">
-          <a class="btn-solid" href="#works">작업물 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          <button type="button" class="btn-line showreel-open" hidden>
-            <i class="bi bi-play-fill" aria-hidden="true"></i> Showreel 재생
-          </button>
+      <div class="hero-bar is-top">
+        <div class="wrap d-flex flex-wrap justify-content-between gap-2">
+          <span>Video Editing &amp; Content Design</span>
+          <span>Portfolio 2026</span>
         </div>
       </div>
 
-      <a class="hero-scroll" href="#works">Scroll</a>
+      <div class="hero-frame">
+        <div class="hero-media" aria-hidden="true">
+          <!--
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="assets/video/showreel-loop.mp4" type="video/mp4">
+          </video>
+          -->
+        </div>
+        <div class="wrap hero-statement">
+          <p>
+            <span class="line">아이디어를 영상으로,</span>
+            <span class="line">이야기를 콘텐츠로.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-bar is-bottom">
+        <div class="wrap d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div class="hero-id">
+            <h1 id="home-title">이영민</h1>
+            <span class="en">Yeongmin Lee</span>
+          </div>
+          <div class="hero-actions">
+            <button type="button" class="showreel-open" hidden>
+              <i class="bi bi-play-fill" aria-hidden="true"></i> Showreel
+            </button>
+            <a class="text-link" href="#works">작업 보기 <i class="bi bi-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ========================= WORKS ========================= -->
     <!--
-      영상 연결 방법: .media-frame 의 data-youtube-id 에 YouTube 영상 ID(11자)를 넣으면
-      썸네일이 자동으로 표시됩니다. 비워 두면 '준비 중' 틀이 표시됩니다.
-      이미지 썸네일을 쓰려면 .media-placeholder 대신 <img src="..." alt="..."> 를 넣으세요.
+      미리보기 연결 방법 (마우스를 올리면 커서를 따라 썸네일이 나타납니다)
+      - 영상: .work-row 의 data-youtube-id 에 YouTube 영상 ID(11자)
+      - 이미지: data-preview-img 에 이미지 경로 (예: assets/img/works/character.jpg)
+      비워 두면 미리보기 없이 목록만 표시됩니다.
     -->
     <section id="works" class="works theme-dark bg-works" aria-labelledby="works-title">
       <div class="wrap">
 
-        <header class="section-head" data-aos="fade-up">
-          <p class="eyebrow">02 — Works</p>
-          <h2 id="works-title">Works</h2>
-          <p class="section-desc">영상 편집과 콘텐츠 디자인 작업을 소개합니다.</p>
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">00:00:08:00</p>
+            <h2 id="works-title">Works</h2>
+          </div>
+          <p class="head-meta">Video 03 / Design 03</p>
         </header>
 
-        <!-- Video Works -->
-        <div class="sub-head" data-aos="fade-up">
-          <h3>Video Works</h3>
-          <span class="count">03</span>
+        <div class="work-group">
+          <div class="group-head">
+            <h3>Video Works</h3>
+            <span>03</span>
+          </div>
+          <ol class="work-list">
+            <li class="work-row" data-youtube-id="">
+              <a class="work-link" href="portfolio-details-1.html">
+                <span class="work-no">V01</span>
+                <span class="work-name">동백커피 홍보영상</span>
+                <span class="work-cat">Promotional Film</span>
+                <span class="work-go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+              </a>
+            </li>
+            <li class="work-row" data-youtube-id="">
+              <a class="work-link" href="portfolio-details-2.html">
+                <span class="work-no">V02</span>
+                <span class="work-name">운무산맥 제품 광고영상</span>
+                <span class="work-cat">Product Commercial</span>
+                <span class="work-go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+              </a>
+            </li>
+            <!-- 완성 후 공개: 공개할 때 위와 같은 <a class="work-link" href="portfolio-details-3.html"> 구조로 바꾸세요. -->
+            <li class="work-row is-upcoming">
+              <div class="work-link">
+                <span class="work-no">V03</span>
+                <span class="work-name">브랜드 스토리텔링 광고영상</span>
+                <span class="work-cat">Brand Film</span>
+                <span class="work-status">완성 후 공개</span>
+              </div>
+            </li>
+          </ol>
         </div>
 
-        <div class="video-list">
-
-          <article class="video-card" data-aos="fade-up">
-            <a class="video-card-media" href="portfolio-details-1.html" aria-label="동백커피 홍보영상 상세 보기" tabindex="-1">
-              <div class="media-frame" data-youtube-id="" data-mode="thumb">
-                <div class="media-placeholder"><i class="bi bi-camera-video" aria-hidden="true"></i><span>영상 준비 중</span></div>
-              </div>
-            </a>
-            <div class="video-card-body">
-              <span class="work-index">V01</span>
-              <h4><a href="portfolio-details-1.html">동백커피 홍보영상</a></h4>
-              <p class="work-type">홍보영상</p>
-              <div class="actions">
-                <a class="text-link" href="portfolio-details-1.html">상세 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="video-card" data-aos="fade-up">
-            <a class="video-card-media" href="portfolio-details-2.html" aria-label="운무산맥 제품 광고영상 상세 보기" tabindex="-1">
-              <div class="media-frame" data-youtube-id="" data-mode="thumb">
-                <div class="media-placeholder"><i class="bi bi-camera-video" aria-hidden="true"></i><span>영상 준비 중</span></div>
-              </div>
-            </a>
-            <div class="video-card-body">
-              <span class="work-index">V02</span>
-              <h4><a href="portfolio-details-2.html">운무산맥 제품 광고영상</a></h4>
-              <p class="work-type">제품 광고영상</p>
-              <div class="actions">
-                <a class="text-link" href="portfolio-details-2.html">상세 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 완성 후 공개: 링크 없음. 공개 시 다른 카드와 같은 구조로 바꾸고 portfolio-details-3.html 을 연결하세요. -->
-          <article class="video-card is-upcoming" data-aos="fade-up">
-            <div class="video-card-media">
-              <div class="media-frame">
-                <div class="media-placeholder"><i class="bi bi-hourglass-split" aria-hidden="true"></i><span>제작 중</span></div>
-              </div>
-            </div>
-            <div class="video-card-body">
-              <span class="work-index">V03</span>
-              <h4>브랜드 스토리텔링 광고영상</h4>
-              <p class="work-type">브랜드 스토리텔링 광고영상</p>
-              <div class="actions">
-                <span class="badge-status is-upcoming">완성 후 공개</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- Design Works -->
-        <div class="design-block">
-          <div class="sub-head" data-aos="fade-up">
+        <div class="work-group">
+          <div class="group-head">
             <h3>Design Works</h3>
-            <span class="count">03</span>
+            <span>03</span>
           </div>
-
-          <div class="design-grid">
-
-            <article class="design-card" data-aos="fade-up">
-              <a class="design-card-media" href="portfolio-details-4.html" aria-label="캐릭터 디자인 상세 보기" tabindex="-1">
-                <div class="media-frame is-4x3">
-                  <div class="media-placeholder"><i class="bi bi-image" aria-hidden="true"></i><span>이미지 준비 중</span></div>
-                </div>
+          <ol class="work-list is-design">
+            <li class="work-row" data-preview-img="">
+              <a class="work-link" href="portfolio-details-4.html">
+                <span class="work-no">D01</span>
+                <span class="work-name">캐릭터 디자인</span>
+                <span class="work-cat">Character Design</span>
+                <span class="work-go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
               </a>
-              <div class="design-card-body">
-                <span class="work-index">D01</span>
-                <h4><a href="portfolio-details-4.html">캐릭터 디자인</a></h4>
-                <p class="work-type">Character Design</p>
-                <a class="text-link" href="portfolio-details-4.html">상세 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-
-            <article class="design-card" data-aos="fade-up" data-aos-delay="80">
-              <a class="design-card-media" href="portfolio-details-5.html" aria-label="Figma 앱 UI 디자인 상세 보기" tabindex="-1">
-                <div class="media-frame is-4x3">
-                  <div class="media-placeholder"><i class="bi bi-image" aria-hidden="true"></i><span>이미지 준비 중</span></div>
-                </div>
+            </li>
+            <li class="work-row" data-preview-img="">
+              <a class="work-link" href="portfolio-details-5.html">
+                <span class="work-no">D02</span>
+                <span class="work-name">Figma 앱 UI 디자인</span>
+                <span class="work-cat">App UI Design</span>
+                <span class="work-go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
               </a>
-              <div class="design-card-body">
-                <span class="work-index">D02</span>
-                <h4><a href="portfolio-details-5.html">Figma 앱 UI 디자인</a></h4>
-                <p class="work-type">App UI Design</p>
-                <a class="text-link" href="portfolio-details-5.html">상세 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-
-            <article class="design-card" data-aos="fade-up" data-aos-delay="160">
-              <a class="design-card-media" href="portfolio-details-6.html" aria-label="제품 상세페이지 디자인 상세 보기" tabindex="-1">
-                <div class="media-frame is-4x3">
-                  <div class="media-placeholder"><i class="bi bi-image" aria-hidden="true"></i><span>이미지 준비 중</span></div>
-                </div>
+            </li>
+            <li class="work-row" data-preview-img="">
+              <a class="work-link" href="portfolio-details-6.html">
+                <span class="work-no">D03</span>
+                <span class="work-name">제품 상세페이지 디자인</span>
+                <span class="work-cat">Product Detail Page</span>
+                <span class="work-go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
               </a>
-              <div class="design-card-body">
-                <span class="work-index">D03</span>
-                <h4><a href="portfolio-details-6.html">제품 상세페이지 디자인</a></h4>
-                <p class="work-type">Product Detail Page</p>
-                <a class="text-link" href="portfolio-details-6.html">상세 보기 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-
-          </div>
+            </li>
+          </ol>
         </div>
 
       </div>
@@ -248,16 +221,16 @@
       <div class="wrap">
         <div class="about-grid">
 
-          <figure class="about-photo m-0" data-aos="fade-up">
+          <figure class="about-photo m-0">
             <img src="assets/img/profile.jpg" alt="이영민 프로필 사진" width="800" height="1198" loading="lazy">
-            <figcaption><span>이영민</span><span>YEONGMIN LEE</span></figcaption>
+            <figcaption><span>이영민</span><span>Yeongmin Lee</span></figcaption>
           </figure>
 
           <div class="about-text">
-            <p class="eyebrow" data-aos="fade-up">03 — About</p>
-            <h2 id="about-title" data-aos="fade-up">표현과 그 확장에 대한 고민</h2>
+            <p class="eyebrow">00:00:32:00</p>
+            <h2 id="about-title">표현과 그 확장에 대한 고민</h2>
 
-            <div class="about-body" data-aos="fade-up">
+            <div class="about-body">
               <p>저는 머릿속에 떠오르는 작은 아이디어를 어떻게 표현할 수 있을지 늘 고민해 왔습니다. 처음에는 익숙했던 음악이 그 생각과 감정을 표현하는 가장 자연스러운 수단이었습니다.</p>
               <p>비올라를 전공하며 클래식 음악을 깊이 공부했습니다. 그러면서도 더 다양한 음악을 경험하고 싶다는 생각에 익숙한 현악기를 벗어나, 이름조차 낯설었던 관악기를 새롭게 배워 군악대에서 복무했습니다. 졸업 후에는 전자음악에도 관심을 가지며 새로운 소리의 가능성을 탐구했습니다.</p>
               <p>하지만 표현의 방식을 알아갈수록 오히려 더 많은 것을 담아내고 싶다는 욕심이 생겼습니다. 소리뿐 아니라 머릿속에 그려지는 이미지와 움직임까지 표현하고 싶었고, 이러한 관심은 자연스럽게 영상 편집과 콘텐츠 디자인으로 이어졌습니다.</p>
@@ -274,114 +247,75 @@
     <section id="skills" class="skills theme-light bg-skills" aria-labelledby="skills-title">
       <div class="wrap">
 
-        <header class="section-head" data-aos="fade-up">
-          <p class="eyebrow">04 — Skills &amp; Background</p>
-          <h2 id="skills-title">Skills &amp; Background</h2>
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">00:00:44:00</p>
+            <h2 id="skills-title">Skills &amp; Background</h2>
+          </div>
         </header>
 
-        <!-- A. Production Skills -->
-        <div class="group-label" data-aos="fade-up">
-          <span class="letter">A</span>
+        <div class="cv-block">
           <h3>Production Skills</h3>
+          <ul class="cv-list">
+            <li class="cv-item"><span class="item-title">Premiere Pro</span><span class="item-desc">컷 편집, 영상 구성, 오디오 편집</span></li>
+            <li class="cv-item"><span class="item-title">After Effects</span><span class="item-desc">키프레임 애니메이션, 영상 합성, 모션그래픽</span></li>
+            <li class="cv-item"><span class="item-title">Photoshop</span><span class="item-desc">이미지 보정, 합성, 시각 자료 제작</span></li>
+            <li class="cv-item"><span class="item-title">Figma</span><span class="item-desc">UI 디자인, 레이아웃, 시안 제작</span></li>
+            <li class="cv-item"><span class="item-title">FL Studio · Suno</span><span class="item-desc">음악 제작, 편곡, 사운드 구성, AI 음악 시안 제작</span></li>
+            <li class="cv-item"><span class="item-title">HTML · CSS · JavaScript</span><span class="item-desc">웹페이지 제작 및 인터랙션</span></li>
+          </ul>
         </div>
 
-        <ul class="skill-grid list-unstyled m-0">
-          <li class="skill-card" data-aos="fade-up">
-            <span class="skill-area">Video</span>
-            <h4>Premiere Pro</h4>
-            <p>컷 편집, 영상 구성, 오디오 편집</p>
-          </li>
-          <li class="skill-card" data-aos="fade-up" data-aos-delay="60">
-            <span class="skill-area">Motion</span>
-            <h4>After Effects</h4>
-            <p>키프레임 애니메이션, 영상 합성, 모션그래픽</p>
-          </li>
-          <li class="skill-card" data-aos="fade-up" data-aos-delay="120">
-            <span class="skill-area">Image</span>
-            <h4>Photoshop</h4>
-            <p>이미지 보정, 합성, 시각 자료 제작</p>
-          </li>
-          <li class="skill-card" data-aos="fade-up">
-            <span class="skill-area">UI</span>
-            <h4>Figma</h4>
-            <p>UI 디자인, 레이아웃, 시안 제작</p>
-          </li>
-          <li class="skill-card" data-aos="fade-up" data-aos-delay="60">
-            <span class="skill-area">Sound</span>
-            <h4>FL Studio · Suno</h4>
-            <p>음악 제작, 편곡, 사운드 구성, AI 음악 시안 제작</p>
-          </li>
-          <li class="skill-card" data-aos="fade-up" data-aos-delay="120">
-            <span class="skill-area">Web</span>
-            <h4>HTML · CSS · JavaScript</h4>
-            <p>웹페이지 제작 및 인터랙션</p>
-          </li>
-        </ul>
+        <div class="cv-block">
+          <h3>Education</h3>
+          <ul class="cv-list">
+            <li class="cv-item"><span class="item-title">국립창원대학교 음악과 졸업</span><span class="item-desc">비올라 전공</span></li>
+          </ul>
+        </div>
 
-        <div class="background-grid">
-
-          <!-- B. Education -->
-          <div data-aos="fade-up">
-            <div class="group-label">
-              <span class="letter">B</span>
-              <h3>Education</h3>
-            </div>
-            <ul class="bg-list">
-              <li>
-                <p class="item-title">국립창원대학교 음악과 졸업</p>
-                <p class="item-meta">비올라 전공</p>
-              </li>
-            </ul>
-          </div>
-
-          <!-- C. Qualifications & Activities -->
-          <div data-aos="fade-up" data-aos-delay="80">
-            <div class="group-label">
-              <span class="letter">C</span>
-              <h3>Qualifications &amp; Activities</h3>
-            </div>
-            <ul class="bg-list">
-              <li>
-                <p class="item-title">문화예술교육사 2급</p>
-              </li>
-              <li>
-                <p class="item-title">예술활동증명 완료</p>
-                <p class="item-meta">한국예술인복지재단 · 일반음악(음악)</p>
+        <div class="cv-block">
+          <h3>Qualifications &amp; Activities</h3>
+          <ul class="cv-list">
+            <li class="cv-item"><span class="item-title">문화예술교육사 2급</span><span class="item-desc"></span></li>
+            <li class="cv-item">
+              <span class="item-title">예술활동증명 완료</span>
+              <span class="item-desc">
+                한국예술인복지재단 · 일반음악(음악)<br>
                 <a class="text-link" href="assets/img/artist-activity-certificate.png" target="_blank" rel="noopener">
-                  확인서 보기 <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i><span class="visually-hidden">(새 창, 개인정보 비공개 처리본)</span>
+                  확인서 보기 <i class="bi bi-arrow-up-right" aria-hidden="true"></i><span class="visually-hidden">(새 창, 개인정보 비공개 처리본)</span>
                 </a>
-              </li>
-            </ul>
-          </div>
-
+              </span>
+            </li>
+          </ul>
         </div>
+
       </div>
     </section>
 
     <!-- ========================= CONTACT ========================= -->
     <section id="contact" class="contact theme-dark bg-sidebar" aria-labelledby="contact-title">
       <div class="wrap">
-        <header class="section-head mb-0" data-aos="fade-up">
-          <p class="eyebrow">05 — Contact</p>
-          <h2 id="contact-title">Contact</h2>
+        <header class="section-head">
+          <div>
+            <p class="eyebrow">00:00:54:00</p>
+            <h2 id="contact-title">Contact</h2>
+          </div>
         </header>
 
-        <div data-aos="fade-up">
-          <a class="contact-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
-          <div class="contact-actions">
-            <a class="btn-solid" href="mailto:wilhelmraum@naver.com"><i class="bi bi-envelope" aria-hidden="true"></i> 메일 보내기</a>
-            <button type="button" class="btn-line copy-email" data-copy="wilhelmraum@naver.com">
-              <i class="bi bi-copy" aria-hidden="true"></i> 주소 복사
-            </button>
-            <span class="copy-status" role="status" aria-live="polite"></span>
-          </div>
+        <a class="contact-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
+        <div class="contact-actions">
+          <a class="btn-line" href="mailto:wilhelmraum@naver.com"><i class="bi bi-envelope" aria-hidden="true"></i> 메일 보내기</a>
+          <button type="button" class="btn-line copy-email" data-copy="wilhelmraum@naver.com">
+            <i class="bi bi-copy" aria-hidden="true"></i> 주소 복사
+          </button>
+          <span class="copy-status" role="status" aria-live="polite"></span>
         </div>
       </div>
 
       <footer class="site-footer">
         <div class="wrap">
-          <span>© 2026 이영민 · Yeongmin Lee</span>
-          <span>Video Editing &amp; Content Design</span>
+          <span>© 2026 이영민 Yeongmin Lee</span>
+          <span>00:01:00:00 — End</span>
         </div>
       </footer>
     </section>
@@ -403,10 +337,6 @@
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </a>
 
-  <!-- Vendor JS -->
-  <script src="assets/vendor/aos/aos.js"></script>
-
-  <!-- Main JS -->
   <script src="assets/js/main.js"></script>
 
 </body>

@@ -14,18 +14,26 @@ portfolio-details-4.html    D01 캐릭터 디자인
 portfolio-details-5.html    D02 Figma 앱 UI 디자인
 portfolio-details-6.html    D03 제품 상세페이지 디자인
 assets/css/main.css         디자인 토큰(색상·서체) + 전체 스타일
-assets/js/main.js           사이드바, 스크롤 위치 표시, YouTube 연결
+assets/js/main.js           타임코드 타임라인, 목록 미리보기, YouTube 연결
 ```
 
 ## 콘텐츠 넣는 방법
 
-- **영상 (YouTube)**: `.media-frame` 의 `data-youtube-id=""` 에 영상 ID(11자)를 넣습니다.
-  - `index.html` 카드: 썸네일이 자동 표시됩니다.
-  - 상세 페이지: 클릭하면 재생되는 플레이어가 표시됩니다.
-- **쇼릴**: `index.html` 의 `#home` 에 있는 `data-showreel-id` 에 ID를 넣으면 'Showreel 재생' 버튼이 나타납니다.
+- **영상 (YouTube)**: 영상 ID(11자)를 두 곳에 넣습니다.
+  - `index.html` 의 `.work-row` → `data-youtube-id` : 목록에 마우스를 올리면 썸네일 미리보기가 나타납니다.
+  - 상세 페이지의 `.media-frame` → `data-youtube-id` : 클릭하면 재생되는 플레이어가 표시됩니다.
+- **디자인 이미지**
+  - `index.html` 의 `.work-row` → `data-preview-img="assets/img/works/파일명.jpg"` : 목록 미리보기
+  - 상세 페이지: `.media-placeholder` 를 `<img src="assets/img/works/파일명.jpg" alt="설명">` 로 교체
+- **쇼릴**: `index.html` 의 `#home` 에 있는 `data-showreel-id` 에 ID를 넣으면 'Showreel' 버튼이 나타납니다.
   배경 루프 영상은 `.hero-media` 안의 `<video>` 주석을 해제해 사용합니다(짧고 가벼운 파일 권장).
-- **이미지**: `.media-placeholder` 를 `<img src="assets/img/works/파일명.jpg" alt="설명">` 로 교체합니다.
 - **상세 설명**: 각 상세 페이지의 `<!-- TODO -->` 아래 '내용 작성 예정' 문단을 교체합니다.
+
+## 타임코드 콘셉트
+
+사이트 전체를 한 편의 60초 영상으로 보고, 사이드바를 편집 타임라인처럼 표시합니다.
+각 메뉴의 `data-in`(초)이 섹션의 시작 타임코드이며, 스크롤에 따라 재생 헤드와 타임코드(24fps)가 움직입니다.
+섹션을 추가하거나 순서를 바꾸면 `data-in` 값과 각 섹션의 `.eyebrow` 타임코드를 함께 맞춰 주세요.
 
 ## 주의
 
@@ -48,5 +56,5 @@ assets/js/main.js           사이드바, 스크롤 위치 표시, YouTube 연�
 |---|---|---|
 | [Bootstrap](https://getbootstrap.com/) 5 | 기본 스타일·그리드 | MIT |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | 아이콘 | MIT |
-| [AOS](https://github.com/michalsnik/aos) | 스크롤 등장 효과 | MIT |
-| [Pretendard](https://github.com/orioncactus/pretendard) | 서체 (jsDelivr CDN) | SIL OFL 1.1 |
+| [Pretendard](https://github.com/orioncactus/pretendard) | 본문 서체 (jsDelivr CDN) | SIL OFL 1.1 |
+| [JetBrains Mono](https://www.jetbrains.com/lp/mono/) | 타임코드·메타 정보 서체 (Google Fonts) | SIL OFL 1.1 |

@@ -14,14 +14,16 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts: Pretendard -->
+  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·메타 정보) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
   <!-- Vendor CSS -->
   <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/vendor/aos/aos.css">
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
@@ -33,14 +35,16 @@
 
   <!-- Mobile top bar -->
   <header class="topbar theme-dark">
-    <a class="brand-mini" href="index.html#home">이영민 <span>YEONGMIN LEE</span></a>
+    <a class="brand-mini" href="index.html#home">이영민 <span>Yeongmin Lee</span></a>
+    <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
     <button type="button" class="icon-btn menu-toggle" aria-controls="sidebar" aria-expanded="false">
       <i class="bi bi-list" aria-hidden="true"></i>
       <span class="visually-hidden">메뉴 열기</span>
     </button>
+    <span class="topbar-progress" aria-hidden="true"></span>
   </header>
 
-  <!-- Sidebar -->
+  <!-- Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 (상세 페이지는 Works 구간) -->
   <aside id="sidebar" class="sidebar theme-dark" aria-label="사이트 메뉴">
     <div class="sidebar-inner">
       <button type="button" class="icon-btn sidebar-close">
@@ -50,23 +54,27 @@
 
       <a class="brand" href="index.html#home">
         <span class="brand-name">이영민</span>
-        <span class="brand-en">YEONGMIN LEE</span>
+        <span class="brand-en">Yeongmin Lee</span>
       </a>
       <p class="brand-role">Video Editing<br>&amp; Content Design</p>
 
-      <nav class="sidenav" aria-label="주요 메뉴">
+      <nav class="timeline" aria-label="주요 메뉴">
+        <div class="timeline-track" aria-hidden="true">
+          <span class="timeline-fill"></span>
+          <span class="playhead"></span>
+        </div>
         <ol>
-          <li><a href="index.html#home"><span class="nav-num">01</span><span class="nav-label">Home</span></a></li>
-          <li><a href="index.html#works" class="is-active" aria-current="true"><span class="nav-num">02</span><span class="nav-label">Works</span></a></li>
-          <li><a href="index.html#about"><span class="nav-num">03</span><span class="nav-label">About</span></a></li>
-          <li><a href="index.html#skills"><span class="nav-num">04</span><span class="nav-label">Skills &amp; Background</span></a></li>
-          <li><a href="index.html#contact"><span class="nav-num">05</span><span class="nav-label">Contact</span></a></li>
+          <li><a href="index.html#home" data-in="0"><span class="tc">00:00:00:00</span><span class="nav-label">Home</span></a></li>
+          <li><a href="index.html#works" data-in="8" class="is-active" aria-current="true"><span class="tc">00:00:08:00</span><span class="nav-label">Works</span></a></li>
+          <li><a href="index.html#about" data-in="32"><span class="tc">00:00:32:00</span><span class="nav-label">About</span></a></li>
+          <li><a href="index.html#skills" data-in="44"><span class="tc">00:00:44:00</span><span class="nav-label">Skills &amp; Background</span></a></li>
+          <li><a href="index.html#contact" data-in="54"><span class="tc">00:00:54:00</span><span class="nav-label">Contact</span></a></li>
         </ol>
       </nav>
 
       <div class="sidebar-foot">
-        <span class="label">Email</span>
-        <a href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
+        <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
+        <a class="sidebar-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
       </div>
     </div>
   </aside>
@@ -166,10 +174,6 @@
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </a>
 
-  <!-- Vendor JS -->
-  <script src="assets/vendor/aos/aos.js"></script>
-
-  <!-- Main JS -->
   <script src="assets/js/main.js"></script>
 
 </body>
