@@ -625,7 +625,8 @@
    * ------------------------------------------------------- */
   function initCopyEmail() {
     $$('.copy-email').forEach((button) => {
-      const status = $('.copy-status', button.parentElement);
+      // 같은 섹션의 안내 문구 하나를 함께 씀 (큰 메일 주소 · 주소 복사 버튼)
+      const status = $('.copy-status', button.closest('section') || button.parentElement);
       let timer = 0;
 
       button.addEventListener('click', async () => {
@@ -638,10 +639,10 @@
         }
         if (!status) return;
         status.textContent = copied
-          ? '이메일 주소를 복사했습니다.'
+          ? '이메일 주소를 복사했습니다.\n잘 부탁드립니다!'   // 줄바꿈은 사이드바에서만 적용 (CSS white-space)
           : '복사하지 못했습니다. 주소를 직접 선택해 주세요.';
         clearTimeout(timer);
-        timer = setTimeout(() => { status.textContent = ''; }, 3000);
+        timer = setTimeout(() => { status.textContent = ''; }, 4000);   // 문구가 길어져 조금 더 오래 표시
       });
     });
   }

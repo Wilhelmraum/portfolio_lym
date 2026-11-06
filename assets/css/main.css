@@ -376,15 +376,31 @@ section {
   letter-spacing: 0.01em;
 }
 
+/* 누르면 주소 복사 (버튼) */
 .sidebar-mail {
   display: inline-block;
   margin-top: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
   font-size: 0.8125rem;
+  text-align: left;
   color: var(--muted);
   word-break: break-all;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
 }
 
 .sidebar-mail:hover { color: var(--accent); }
+
+.sidebar-foot .copy-status {
+  display: block;
+  min-height: 1.5em;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--accent);
+  white-space: pre-line;   /* 좁은 사이드바에서는 인사말을 다음 줄에 */
+}
 
 .main,
 .site-footer { margin-left: var(--sidebar-w); }
@@ -1385,7 +1401,11 @@ a.work-link:focus-visible .work-go {
 
 .contact-mail {
   display: inline-block;
-  padding-bottom: 6px;
+  padding: 0 0 6px;
+  border: 0;
+  background-color: transparent;   /* 버튼 기본 배경 제거 — 밑줄은 background-image로 그림 */
+  font-family: inherit;
+  cursor: pointer;
   font-size: clamp(1.5rem, 0.8rem + 3.4vw, 3.75rem);
   font-weight: 600;
   letter-spacing: -0.03em;
