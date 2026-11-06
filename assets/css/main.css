@@ -46,7 +46,7 @@
   --font-mono: "JetBrains Mono", "Pretendard Variable", Pretendard, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-serif: "Instrument Serif", "Times New Roman", serif;   /* 영문 제목 포인트 전용 (이탤릭, 한글 없음) */
 
-  --fs-display: clamp(2.875rem, 1.75rem + 3.6vw, 5rem);   /* 세리프 영문 제목 — 세리프가 작아 보여 h2보다 크게 */
+  --fs-display: clamp(2rem, 1rem + 4.6vw, 5rem);   /* 세리프 영문 제목 — 세리프가 작아 보여 h2보다 크게. 모바일에서는 Home 문구보다 작게 */
   --fs-h2: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
   --fs-h3: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
@@ -957,13 +957,18 @@ section {
   container-type: inline-size;
 }
 
+/* 크기: 모바일은 폭을 가득 채우고(12cqi), 넓은 화면은 모니터 프레임 안쪽에 여백이 남도록(10cqi, 프레임 폭의 약 75~80%) */
 .hero-statement p {
-  font-size: clamp(2rem, 8.4vw, 9rem);    /* 컨테이너 단위를 지원하지 않는 브라우저용 */
-  font-size: clamp(2rem, 12cqi, 9rem);
+  font-size: clamp(2rem, 7vw, 7rem);      /* 컨테이너 단위를 지원하지 않는 브라우저용 */
+  font-size: clamp(2rem, 12cqi, 7rem);
   font-weight: 650;
   line-height: 1.12;
   letter-spacing: -0.045em;
   color: var(--text);
+}
+
+@container (min-width: 600px) {
+  .hero-statement p { font-size: clamp(2rem, 10cqi, 7rem); }
 }
 
 .hero-line { display: block; }
