@@ -611,8 +611,19 @@
       poster.className = 'yt-poster';
       poster.setAttribute('aria-label', (title ? title + ' ' : '') + '영상 재생');
 
+      // 상세 페이지는 화면이 넓어 고해상도 썸네일부터 시도: 1280 → 640 → 480
+      // (없는 해상도는 YouTube가 120×90 회색 이미지를 주므로 크기로 판별해 다음 단계로)
       const thumb = document.createElement('img');
-      thumb.src = youTubeThumb(id);
+      const sizes = ['maxresdefault', 'sddefault', 'hqdefault'];
+      let level = 0;
+      thumb.addEventListener('load', () => {
+        if (thumb.naturalWidth <= 120 && level < sizes.length - 1) {
+          level += 1;
+          thumb.src = 'https://i.ytimg.com/vi/' + id + '/' + sizes[level] + '.jpg';
+        }
+      });
+      thumb.addEventListener('error', () => { thumb.src = youTubeThumb(id); }, { once: true });
+      thumb.src = 'https://i.ytimg.com/vi/' + id + '/' + sizes[0] + '.jpg';
       thumb.alt = '';
       thumb.loading = 'lazy';
 

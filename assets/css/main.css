@@ -1143,7 +1143,7 @@ section {
   line-height: inherit;
 }
 
-.work-list { position: relative; }
+.work-list { position: relative; z-index: 1; }   /* 마우스 미리보기 썸네일(z-index:0)보다 위 */
 
 .work-row {
   position: relative;
@@ -1264,11 +1264,12 @@ a.work-link:focus-visible .work-go {
 }
 
 /* 커서를 따라다니는 미리보기 — JS가 생성, 썸네일이 있는 항목에서만 표시 */
+/* 썸네일은 작업 이름 '뒤'에 깔림 — 이름이 가려지지 않도록 목록(z-index:1)보다 아래, 섹션 배경보다 위 */
 .work-preview {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 700;
+  z-index: 0;
   width: 340px;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -1327,6 +1328,7 @@ a.work-link:focus-visible .work-go {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.72);   /* 위에 겹치는 흰 글자가 읽히도록 살짝 어둡게 */
 }
 
 /* ABOUT ------------------------------------------------------ */
