@@ -48,7 +48,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
 
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261106-7">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261106-8">
 </head>
 
 <body>
@@ -78,7 +78,20 @@
         <span class="brand-name">이영민</span>
         <span class="brand-en">Yeongmin Lee</span>
       </a>
-      <p class="brand-role">Video Editing<br>&amp; Content Design</p>
+      <!-- 이름 아래 정보 — 여러 포트폴리오를 훑는 분이 연락처를 바로 가져갈 수 있도록 -->
+      <dl class="brand-meta">
+        <div class="brand-meta-row">
+          <dt>Role</dt>
+          <dd>Video Editing<br>&amp; Content Design</dd>
+        </div>
+        <div class="brand-meta-row">
+          <dt>Mail</dt>
+          <dd>
+            <button type="button" class="sidebar-mail copy-email" data-copy="wilhelmraum@naver.com">wilhelmraum@<wbr>naver.com<i class="bi bi-copy" aria-hidden="true"></i><span class="visually-hidden"> (누르면 주소 복사)</span></button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+          </dd>
+        </div>
+      </dl>
 
       <!-- data-in: 각 섹션의 시작 타임코드(초) -->
       <nav class="timeline" aria-label="주요 메뉴">
@@ -97,8 +110,6 @@
 
       <div class="sidebar-foot">
         <div class="tc-live" aria-hidden="true"><span class="tc-live-label">TC</span><span class="tc-live-value" data-tc-live>00:00:00:00</span></div>
-        <button type="button" class="sidebar-mail copy-email" data-copy="wilhelmraum@naver.com">wilhelmraum@naver.com<span class="visually-hidden"> (누르면 주소 복사)</span></button>
-        <span class="copy-status" role="status" aria-live="polite"></span>
       </div>
     </div>
   </aside>

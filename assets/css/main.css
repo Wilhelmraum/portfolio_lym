@@ -259,17 +259,50 @@ section {
   color: var(--muted);
 }
 
-.brand-role {
-  margin-top: 18px;
-  font-size: 0.875rem;
-  line-height: 1.55;
+/* 이름 아래 정보 — 편집 프로그램의 클립 정보 창처럼 라벨 | 값 2열 */
+.brand-meta {
+  position: relative;   /* 복사 안내 문구가 아래 여백에 겹쳐 뜨는 기준 */
+  display: grid;
+  row-gap: 10px;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.brand-meta-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);   /* 값 열 166px — 메일 주소 + 복사 아이콘이 한 줄에 */
+  column-gap: 8px;
+  align-items: baseline;
+}
+
+.brand-meta dt {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  text-transform: uppercase;
+  white-space: nowrap;
   color: var(--muted);
+  opacity: 0.75;
+  transition: color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.brand-meta dd {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* 복사하면 2초간 Mail 라벨도 강조색 (버튼의 .is-copied를 따라감 — :has 미지원 브라우저는 버튼만 바뀜) */
+.brand-meta-row:has(.is-copied) dt {
+  color: var(--accent);
+  opacity: 1;
 }
 
 /* Timeline — 메뉴 = 편집 타임라인의 마커 */
 .timeline {
   position: relative;
-  margin-top: 52px;
+  margin-top: 60px;
   padding-left: 22px;
 }
 
@@ -387,30 +420,43 @@ section {
   letter-spacing: 0.01em;
 }
 
-/* 누르면 주소 복사 (버튼) */
+/* 누르면 주소 복사 (버튼) — Role 문구보다 한 단계 밝게 */
 .sidebar-mail {
-  display: inline-block;
-  margin-top: 14px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
   padding: 0;
   border: 0;
   background: none;
-  font-size: 0.8125rem;
+  font-size: inherit;
+  line-height: inherit;
   text-align: left;
-  color: var(--muted);
-  word-break: break-all;
+  color: var(--text);
+  overflow-wrap: anywhere;   /* 대체 서체로 넓어지면 @ 뒤(<wbr>)에서 먼저 줄바꿈 */
   cursor: pointer;
   transition: color var(--dur) var(--ease);
 }
 
-.sidebar-mail:hover { color: var(--accent); }
+.sidebar-mail .bi {
+  flex: none;
+  font-size: 0.6875rem;
+  color: var(--accent);
+}
 
-.sidebar-foot .copy-status {
-  display: block;
-  min-height: 1.5em;
-  margin-top: 4px;
+.sidebar-mail:hover,
+.sidebar-mail.is-copied { color: var(--accent); }
+
+/* 안내 문구는 자리를 차지하지 않고 파형 위 여백에 잠깐 떴다 사라짐 */
+.brand-meta .copy-status {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 38px;   /* 값 열에 맞춤 (라벨 30px + 간격 8px) */
+  right: 0;
   font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--accent);
   white-space: pre-line;   /* 좁은 사이드바에서는 인사말을 다음 줄에 */
+  pointer-events: none;
 }
 
 .main,
