@@ -6,7 +6,7 @@
 ## 구조
 
 ```
-index.html                  HOME · WORKS · ABOUT · SKILLS & BACKGROUND · CONTACT
+index.html                  HOME · WORKS · ABOUT ME · SKILLS & BACKGROUND · CONTACT
 portfolio-details-1.html    V01 동백커피 홍보영상
 portfolio-details-2.html    V02 운무산맥 제품 광고영상
 portfolio-details-3.html    V03 브랜드 스토리텔링 광고영상 (완성 후 공개)
