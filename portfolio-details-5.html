@@ -4,28 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Figma 앱 UI 디자인 | 이영민 포트폴리오</title>
+  <title>Figma 앱 UI 디자인 — 이영민</title>
+  <meta name="description" content="이영민(Yeongmin Lee) 포트폴리오 — Figma 앱 UI 디자인">
   <meta name="author" content="이영민">
-  <meta name="description" content="이영민 포트폴리오 — Figma 앱 UI 디자인">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#111419">
 
-  <!-- Favicons -->
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·메타 정보) -->
+  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·보조 정보) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
-  <!-- Vendor CSS -->
-  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
@@ -33,10 +28,10 @@
 
   <a class="skip-link" href="#main">본문 바로가기</a>
 
-  <!-- Mobile top bar -->
+  <!-- ===== Topbar (1200px 미만) ===== -->
   <header class="topbar theme-dark">
     <a class="brand-mini" href="index.html#home">이영민 <span>Yeongmin Lee</span></a>
-    <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
+    <div class="tc-live" aria-hidden="true"><span class="tc-live-label">TC</span><span class="tc-live-value" data-tc-live>00:00:08:00</span></div>
     <button type="button" class="icon-btn menu-toggle" aria-controls="sidebar" aria-expanded="false">
       <i class="bi bi-list" aria-hidden="true"></i>
       <span class="visually-hidden">메뉴 열기</span>
@@ -44,7 +39,7 @@
     <span class="topbar-progress" aria-hidden="true"></span>
   </header>
 
-  <!-- Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 (상세 페이지는 Works 구간) -->
+  <!-- ===== Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 (상세 페이지는 Works 구간) ===== -->
   <aside id="sidebar" class="sidebar theme-dark" aria-label="사이트 메뉴">
     <div class="sidebar-inner">
       <button type="button" class="icon-btn sidebar-close">
@@ -58,12 +53,13 @@
       </a>
       <p class="brand-role">Video Editing<br>&amp; Content Design</p>
 
+      <!-- data-in: 각 섹션의 시작 타임코드(초) -->
       <nav class="timeline" aria-label="주요 메뉴">
         <div class="timeline-track" aria-hidden="true">
           <span class="timeline-fill"></span>
           <span class="playhead"></span>
         </div>
-        <ol>
+        <ol class="timeline-list">
           <li><a href="index.html#home" data-in="0"><span class="tc">00:00:00:00</span><span class="nav-label">Home</span></a></li>
           <li><a href="index.html#works" data-in="8" class="is-active" aria-current="true"><span class="tc">00:00:08:00</span><span class="nav-label">Works</span></a></li>
           <li><a href="index.html#about" data-in="32"><span class="tc">00:00:32:00</span><span class="nav-label">About</span></a></li>
@@ -73,7 +69,7 @@
       </nav>
 
       <div class="sidebar-foot">
-        <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
+        <div class="tc-live" aria-hidden="true"><span class="tc-live-label">TC</span><span class="tc-live-value" data-tc-live>00:00:08:00</span></div>
         <a class="sidebar-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
       </div>
     </div>
@@ -82,7 +78,7 @@
 
   <main id="main" class="main" tabindex="-1">
 
-    <!-- 대표 비주얼 -->
+    <!-- ===== WORK: 대표 비주얼 ===== -->
     <section class="work-hero theme-dark bg-works" aria-labelledby="work-title">
       <div class="wrap">
         <nav class="crumbs" aria-label="현재 위치">
@@ -93,23 +89,23 @@
           <span aria-current="page">Figma 앱 UI 디자인</span>
         </nav>
 
-        <p class="eyebrow mt-4">Design Work 02</p>
+        <p class="meta-label">Design Work 02</p>
         <h1 id="work-title">Figma 앱 UI 디자인</h1>
         <p class="work-type">App UI Design</p>
 
-        <!-- 대표 이미지: .media-placeholder 를 <img src="assets/img/works/파일명.jpg" alt="설명"> 로 교체하세요. -->
-        <div class="media-frame is-4x3">
-          <div class="media-placeholder"><i class="bi bi-image" aria-hidden="true"></i><span>이미지 준비 중</span></div>
+        <!-- 대표 이미지: .media-placeholder를 <img src="assets/img/works/파일명.jpg" alt="설명">으로 바꿉니다. -->
+        <div class="media-frame media-frame--4x3">
+          <div class="media-placeholder"><span>이미지 준비 중</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 프로젝트 정보 — 각 항목의 '작성 예정' 문단을 실제 내용으로 교체하세요 -->
+    <!-- ===== WORK: 프로젝트 정보 — 각 항목의 '내용 작성 예정' 문단을 실제 내용으로 바꿉니다 ===== -->
     <section class="work-body theme-light bg-about" aria-label="프로젝트 정보">
       <div class="wrap">
 
         <div class="work-block">
-          <h2>프로젝트 개요<span class="en">Overview</span></h2>
+          <h2>프로젝트 개요<span class="work-block-en">Overview</span></h2>
           <div>
             <!-- TODO: 프로젝트 개요 -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -117,7 +113,7 @@
         </div>
 
         <div class="work-block">
-          <h2>제작 목적<span class="en">Purpose</span></h2>
+          <h2>제작 목적<span class="work-block-en">Purpose</span></h2>
           <div>
             <!-- TODO: 제작 목적 -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -125,7 +121,7 @@
         </div>
 
         <div class="work-block">
-          <h2>담당 작업<span class="en">Role</span></h2>
+          <h2>담당 작업<span class="work-block-en">Role</span></h2>
           <div>
             <!-- TODO: 본인이 담당한 작업 -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -133,7 +129,7 @@
         </div>
 
         <div class="work-block">
-          <h2>사용 도구<span class="en">Tools</span></h2>
+          <h2>사용 도구<span class="work-block-en">Tools</span></h2>
           <div>
             <!-- TODO: 실제 사용한 도구. 예) <ul class="tool-list"><li>Premiere Pro</li></ul> -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -141,7 +137,7 @@
         </div>
 
         <div class="work-block">
-          <h2>제작 과정<span class="en">Process</span></h2>
+          <h2>제작 과정<span class="work-block-en">Process</span></h2>
           <div>
             <!-- TODO: 주요 제작 과정 (단계별 설명, 필요하면 과정 이미지 추가) -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -149,7 +145,7 @@
         </div>
 
         <div class="work-block">
-          <h2>최종 결과물<span class="en">Result</span></h2>
+          <h2>최종 결과물<span class="work-block-en">Result</span></h2>
           <div>
             <!-- TODO: 최종 결과물 -->
             <p class="is-pending">내용 작성 예정입니다.</p>
@@ -159,7 +155,7 @@
       </div>
     </section>
 
-    <!-- 이전 / 다음 작업 -->
+    <!-- ===== WORK: 이전 / 다음 작업 ===== -->
     <nav class="work-pager theme-dark bg-sidebar" aria-label="다른 작업">
       <div class="wrap">
         <a class="pager-prev" href="portfolio-details-4.html"><span class="pager-label"><i class="bi bi-arrow-left" aria-hidden="true"></i> Prev</span><span class="pager-title">캐릭터 디자인</span></a>
@@ -170,7 +166,15 @@
 
   </main>
 
-  <a href="#main" class="scroll-top" aria-label="맨 위로">
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer theme-dark">
+    <div class="wrap">
+      <span>© 2026 이영민 Yeongmin Lee</span>
+      <span>00:01:00:00 — End</span>
+    </div>
+  </footer>
+
+  <a class="scroll-top" href="#main" aria-label="맨 위로">
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </a>
 

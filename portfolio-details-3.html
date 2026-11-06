@@ -4,28 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>브랜드 스토리텔링 광고영상 | 이영민 포트폴리오</title>
+  <title>브랜드 스토리텔링 광고영상 — 이영민</title>
+  <meta name="description" content="이영민(Yeongmin Lee) 포트폴리오 — 브랜드 스토리텔링 광고영상 (완성 후 공개)">
   <meta name="author" content="이영민">
-  <meta name="description" content="이영민 포트폴리오 — 브랜드 스토리텔링 광고영상 (완성 후 공개)">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#111419">
 
-  <!-- Favicons -->
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·메타 정보) -->
+  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·보조 정보) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
-  <!-- Vendor CSS -->
-  <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
@@ -33,10 +28,10 @@
 
   <a class="skip-link" href="#main">본문 바로가기</a>
 
-  <!-- Mobile top bar -->
+  <!-- ===== Topbar (1200px 미만) ===== -->
   <header class="topbar theme-dark">
     <a class="brand-mini" href="index.html#home">이영민 <span>Yeongmin Lee</span></a>
-    <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
+    <div class="tc-live" aria-hidden="true"><span class="tc-live-label">TC</span><span class="tc-live-value" data-tc-live>00:00:08:00</span></div>
     <button type="button" class="icon-btn menu-toggle" aria-controls="sidebar" aria-expanded="false">
       <i class="bi bi-list" aria-hidden="true"></i>
       <span class="visually-hidden">메뉴 열기</span>
@@ -44,7 +39,7 @@
     <span class="topbar-progress" aria-hidden="true"></span>
   </header>
 
-  <!-- Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 (상세 페이지는 Works 구간) -->
+  <!-- ===== Sidebar: 사이트 전체를 60초 영상의 타임라인으로 표시 (상세 페이지는 Works 구간) ===== -->
   <aside id="sidebar" class="sidebar theme-dark" aria-label="사이트 메뉴">
     <div class="sidebar-inner">
       <button type="button" class="icon-btn sidebar-close">
@@ -58,12 +53,13 @@
       </a>
       <p class="brand-role">Video Editing<br>&amp; Content Design</p>
 
+      <!-- data-in: 각 섹션의 시작 타임코드(초) -->
       <nav class="timeline" aria-label="주요 메뉴">
         <div class="timeline-track" aria-hidden="true">
           <span class="timeline-fill"></span>
           <span class="playhead"></span>
         </div>
-        <ol>
+        <ol class="timeline-list">
           <li><a href="index.html#home" data-in="0"><span class="tc">00:00:00:00</span><span class="nav-label">Home</span></a></li>
           <li><a href="index.html#works" data-in="8" class="is-active" aria-current="true"><span class="tc">00:00:08:00</span><span class="nav-label">Works</span></a></li>
           <li><a href="index.html#about" data-in="32"><span class="tc">00:00:32:00</span><span class="nav-label">About</span></a></li>
@@ -73,7 +69,7 @@
       </nav>
 
       <div class="sidebar-foot">
-        <div class="tc-live" aria-hidden="true"><span class="tc-label">TC</span><span class="tc-value" data-tc-live>00:00:08:00</span></div>
+        <div class="tc-live" aria-hidden="true"><span class="tc-live-label">TC</span><span class="tc-live-value" data-tc-live>00:00:08:00</span></div>
         <a class="sidebar-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
       </div>
     </div>
@@ -82,11 +78,7 @@
 
   <main id="main" class="main" tabindex="-1">
 
-    <!--
-      완성 후 공개 예정 작업입니다.
-      공개할 때는 portfolio-details-1.html 과 같은 구조(영상 + 프로젝트 정보 + 이전/다음)로 바꾸고,
-      index.html 의 V03 카드에 링크를 연결하세요.
-    -->
+    <!-- ===== WORK: 대표 비주얼 ===== -->
     <section class="work-hero theme-dark bg-works" aria-labelledby="work-title">
       <div class="wrap">
         <nav class="crumbs" aria-label="현재 위치">
@@ -97,10 +89,11 @@
           <span aria-current="page">브랜드 스토리텔링 광고영상</span>
         </nav>
 
-        <p class="eyebrow mt-4">Video Work 03</p>
+        <p class="meta-label">Video Work 03</p>
         <h1 id="work-title">브랜드 스토리텔링 광고영상</h1>
         <p class="work-type">브랜드 스토리텔링 광고영상</p>
 
+        <!-- 공개할 때는 portfolio-details-1.html과 같은 구조로 바꾸고, index.html의 V03 항목에 링크를 연결합니다. -->
         <div class="work-notice">
           <strong>완성 후 공개 예정입니다.</strong>
           현재 제작 중인 작업으로, 완성되면 이 페이지에서 영상과 제작 과정을 소개하겠습니다.
@@ -108,7 +101,8 @@
       </div>
     </section>
 
-    <nav class="work-pager is-solo theme-dark bg-sidebar" aria-label="다른 작업">
+    <!-- ===== WORK: 이전 / 다음 작업 ===== -->
+    <nav class="work-pager work-pager--solo theme-dark bg-sidebar" aria-label="다른 작업">
       <div class="wrap">
         <span></span>
         <a class="pager-list" href="index.html#works"><i class="bi bi-grid" aria-hidden="true"></i><span>목록</span></a>
@@ -117,6 +111,18 @@
     </nav>
 
   </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer theme-dark">
+    <div class="wrap">
+      <span>© 2026 이영민 Yeongmin Lee</span>
+      <span>00:01:00:00 — End</span>
+    </div>
+  </footer>
+
+  <a class="scroll-top" href="#main" aria-label="맨 위로">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </a>
 
   <script src="assets/js/main.js"></script>
 
