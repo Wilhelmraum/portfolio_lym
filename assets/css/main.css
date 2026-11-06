@@ -48,6 +48,7 @@
 
   --fs-display: clamp(2rem, 1rem + 4.6vw, 5rem);   /* 세리프 영문 제목 — 세리프가 작아 보여 h2보다 크게. 모바일에서는 Home 문구보다 작게 */
   --fs-h2: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
+  --fs-h2-ko: clamp(2rem, 1.25rem + 2vw, 3.25rem);   /* 좁은 칸 안의 한글 제목 (About) */
   --fs-h3: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   --fs-body: 1.0625rem;
@@ -271,7 +272,7 @@ section {
 .timeline .tc {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--fs-meta);
   line-height: 1.4;
   font-variant-numeric: tabular-nums;
   opacity: 0.75;
@@ -992,6 +993,26 @@ section {
   .hero-line + .hero-line { padding-left: 0; }
 }
 
+/* 강조 단어의 잔상 — 어니언 스킨처럼 강조색 사본이 글자 뒤 오른쪽 아래에 겹침
+   (.echo는 inline 그대로 둬서 '영상|으로' 사이에서 줄이 바뀌지 않도록 함) */
+.echo {
+  position: relative;
+  z-index: 0;                 /* 잔상(z-index:-1)이 이 단어 뒤, 배경 위에 그려지도록 */
+}
+
+.echo-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: var(--accent);
+  opacity: 0.6;
+  translate: 0.055em 0.055em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;          /* 문구를 복사할 때 단어가 두 번 들어가지 않도록 */
+}
+
 .hero-id {
   display: flex;
   flex-wrap: wrap;
@@ -1262,12 +1283,14 @@ a.work-link:focus-visible .work-go {
   color: var(--muted);
 }
 
+/* 7/12 칸 안의 한글 제목 — 노트북 폭에서도 한 줄, 좁아지면 고르게 두 줄 (단어 하나만 남지 않도록) */
 .about-text h2 {
   margin-top: 10px;
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h2-ko);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 .about-body {
@@ -1471,6 +1494,7 @@ a.work-link:focus-visible .work-go {
   font-size: clamp(2.25rem, 1.5rem + 3vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.04em;
+  text-wrap: balance;   /* 모바일에서 두 줄이 될 때 고르게 */
 }
 
 .work-type {
@@ -1636,6 +1660,10 @@ a.work-link:focus-visible .work-go {
 
   .hero-line + .hero-line { animation-delay: 0.45s; }
 
+  /* 잔상: 각 줄의 와이프가 끝난 직후, 글자 뒤에 숨어 있다가 빠져나오며 페이드 */
+  .echo-ghost { animation: echo-out 1.1s var(--ease) 1.05s both; }
+  .hero-line + .hero-line .echo-ghost { animation-delay: 1.4s; }
+
   /* 텍스트 커서: 와이프가 끝난 뒤부터 깜빡임 */
   .hero-line:last-child::after {
     opacity: 0;
@@ -1724,6 +1752,13 @@ a.work-link:focus-visible .work-go {
 @keyframes caret-blink {
   0%, 49.9% { opacity: 1; }
   50%, 100% { opacity: 0; }
+}
+
+@keyframes echo-out {
+  from {
+    opacity: 0;
+    translate: 0 0;
+  }
 }
 
 @keyframes corner-in {
