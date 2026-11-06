@@ -17,6 +17,7 @@
   5. Sections — home, works, about, skills, contact
   6. Work detail pages
   7. Utilities & motion
+  8. Print — 인쇄·PDF 저장용
 ==============================================================*/
 
 /*--------------------------------------------------------------
@@ -2018,4 +2019,266 @@ a.work-link:focus-visible .work-go {
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
   }
+}
+
+/*--------------------------------------------------------------
+  8. Print — 인쇄·PDF 저장용
+  채용 담당자가 'PDF로 저장'해 팀에 공유하는 경우를 위한 문서형 화면.
+  흰 종이 + 어두운 글자, 사이드바는 맨 위 머리말(이름 · 역할 · 메일 · 주소)로,
+  화면 전용 장식(모니터·파형·버튼·커서)은 숨기고 등장 효과는 모두 끝난 상태로 고정합니다.
+--------------------------------------------------------------*/
+@media screen {
+  .print-only { display: none !important; }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 15mm;
+  }
+
+  /* 모든 테마를 밝은 종이 색으로 — 화면의 밝은 글자가 흰 종이에서 사라지지 않도록 */
+  :root,
+  .theme-dark,
+  .theme-light {
+    --bg: #fff;
+    --text: var(--c-ink-on-light);
+    --muted: var(--c-muted-on-light);
+    --accent: var(--c-accent-on-light);
+    --line: rgba(32, 37, 43, 0.18);
+    --placeholder: #ECE8E1;
+    --section-py: 9mm;
+    --gutter: 0px;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: var(--c-ink-on-light);
+    font-size: 10pt;
+    line-height: 1.65;
+  }
+
+  /* 등장 효과·전환은 끝난 상태로 (스크롤하지 않은 부분도 빠짐없이 인쇄) */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .has-reveal .work-link,
+  .has-roll .credits-line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .has-reveal .work-row::before,
+  .has-reveal.work-list::after { transform: none !important; }
+
+  .has-wipe::before { display: none !important; }
+
+  /* 화면 전용 요소 */
+  .skip-link,
+  .topbar,
+  .sidebar-close,
+  .sidebar-backdrop,
+  .timeline,
+  .sidebar-foot,
+  .brand-meta .copy-status,
+  .sidebar-mail .bi,
+  .scroll-top,
+  .reel-dialog,
+  .work-preview,
+  .play-cursor,
+  .hero-bar,
+  .hero-media,
+  .monitor,
+  .hero-frame::after,
+  .hero-line:last-child::after,
+  .work-go,
+  .work-thumb--empty,
+  .about-link,
+  .contact-actions,
+  .contact .copy-status,
+  .work-pager,
+  .footer-egg { display: none !important; }
+
+  /* 사이드바 → 첫 장 머리말: 왼쪽 이름, 오른쪽 역할·메일·주소 */
+  .sidebar {
+    position: static;
+    width: auto;
+    overflow: visible;
+    transform: none;
+    visibility: visible;
+    background: none;
+    border: 0;
+    color: var(--text);
+  }
+
+  .sidebar-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10mm;
+    min-height: 0;
+    padding: 0 0 5mm;
+    border-bottom: 1px solid var(--text);
+  }
+
+  .brand-name { font-size: 20pt; }
+  .brand-en { font-size: 8.5pt; }
+
+  .brand-meta {
+    row-gap: 2px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .brand-meta-row { grid-template-columns: 11mm minmax(0, 1fr); }
+  .brand-meta dt { font-size: 7.5pt; }
+  .brand-meta dd { font-size: 9pt; color: var(--text); }
+  .brand-meta dd br { display: none; }   /* 역할 문구를 한 줄로 (마크업의 <br> 앞 공백이 띄어쓰기로 남음) */
+  .sidebar-mail { color: var(--text); }
+
+  .main,
+  .site-footer { margin-left: 0; }
+
+  section {
+    background: #fff !important;
+    color: var(--text);
+  }
+
+  .wrap { max-width: none; }
+
+  .section-head { margin-bottom: 6mm; }
+  .section-head h2,
+  .contact-end h2 { font-size: 26pt; }
+
+  h2, h3, .section-head, .group-head { break-after: avoid; }
+
+  /* HOME → 한 줄 소개 */
+  .hero {
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .hero-frame { padding-block: 10mm 4mm; }
+
+  .hero-statement p {
+    font-size: 24pt;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-line { clip-path: none; opacity: 1; }
+
+  /* WORKS → 작은 썸네일 + 번호 · 이름 · 분류 */
+  .work-group + .work-group { margin-top: 8mm; }
+  .group-head { padding-bottom: 2mm; }
+
+  .work-row { break-inside: avoid; }
+
+  .work-link {
+    grid-template-columns: 34mm 12mm minmax(0, 1fr) auto;
+    grid-template-areas: "thumb no name cat";
+    align-items: center;
+    gap: 0 5mm;
+    margin: 0;
+    padding: 3mm 0;
+  }
+
+  .work-row.is-upcoming .work-link {
+    grid-template-columns: 12mm minmax(0, 1fr) auto auto;
+    grid-template-areas: "no name cat go";
+    padding-block: 2mm;
+  }
+
+  .work-thumb { margin: 0; }
+  .work-thumb img { filter: none; }
+
+  .work-name,
+  .work-list--design .work-name { font-size: 13pt; }
+
+  .work-row.is-upcoming .work-name { font-size: 10.5pt; }
+
+  /* ABOUT · SKILLS */
+  .about-grid {
+    grid-template-columns: 42mm minmax(0, 1fr);
+    gap: 8mm;
+  }
+
+  .about-photo {
+    position: static;
+    max-width: none;
+    break-inside: avoid;
+  }
+
+  .about-body { margin-top: 5mm; max-width: none; }
+  .about-body p { font-size: 10pt; line-height: 1.75; }
+  .about-body p:first-child { font-size: 11pt; }
+  .about-body p { orphans: 3; widows: 3; }
+
+  .skills > .wrap::before { margin-bottom: var(--section-py); }
+
+  .cv-block {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 3mm 8mm;
+    padding-block: 5mm;
+  }
+
+  .cv-item {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    padding-block: 2mm;
+    break-inside: avoid;
+  }
+
+  /* CONTACT */
+  .contact { break-inside: avoid; }
+  .contact-mail { font-size: 20pt; }
+  .credits-line { margin-top: 8mm; padding-top: 5mm; }
+
+  .site-footer {
+    padding-block: 4mm 0;
+    background: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .site-footer .wrap { padding: 0; }
+
+  /* 상세 페이지 — 썸네일 아래쪽에 영상 주소 (종이·PDF에서는 플레이어를 누를 수 없으므로) */
+  .work-hero { padding-block: 6mm; }
+  .work-hero h1 { font-size: 24pt; }
+
+  .work-hero .media-frame {
+    max-width: 150mm;
+    margin-top: 6mm;
+    overflow: visible;
+    break-inside: avoid;
+  }
+
+  .work-hero .media-frame[data-youtube-id] { margin-bottom: 8mm; }
+
+  .media-frame[data-youtube-id]::after {
+    content: "YouTube — youtu.be/" attr(data-youtube-id);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 2mm);
+    font-family: var(--font-mono);
+    font-size: 8.5pt;
+    color: var(--c-ink-on-light);
+  }
+
+  .yt-poster img { opacity: 1; }
+
+  .work-block {
+    grid-template-columns: 38mm minmax(0, 1fr);
+    gap: 3mm 8mm;
+    padding-block: 5mm;
+    break-inside: avoid;
+  }
+
+  .work-notice { padding: 4mm 5mm; }
 }
