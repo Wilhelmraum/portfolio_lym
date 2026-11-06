@@ -1014,12 +1014,11 @@ a.work-link:focus-visible .work-go {
   object-position: 50% 20%;
   background: var(--placeholder);
   filter: grayscale(1) contrast(1.06);   /* 흑백 — 사이트 톤에 맞춤 */
-  transition: filter 0.6s var(--ease);
+  transition: filter 1s var(--ease);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .about-photo:hover img { filter: none; } /* 마우스를 올리면 컬러 */
-}
+/* 사진이 화면에 고정되는 순간 컬러로 전환 (JS가 .is-stuck 부여) */
+.about-photo.is-stuck img { filter: none; }
 
 .about-photo figcaption {
   display: flex;

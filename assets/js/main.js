@@ -189,6 +189,40 @@
   }
 
   /* ---------------------------------------------------------
+   * About 사진 — 화면에 고정(sticky)되어 있는 동안만 컬러
+   *  - PC: sticky 위치에 붙는 순간 컬러, 고정이 풀려 위로 밀려나면(더 내려가면)
+   *        다시 흑백. 위로 되돌아가 떨어져도 흑백.
+   *  - 모바일(고정 없음): 사진이 화면 위쪽 구간(20~35%)을 지나는 동안만 컬러
+   * ------------------------------------------------------- */
+  const aboutPhoto = document.querySelector('.about-photo');
+  if (aboutPhoto) {
+    let photoTicking = false;
+    const checkPhoto = () => {
+      photoTicking = false;
+      const style = getComputedStyle(aboutPhoto);
+      const rect = aboutPhoto.getBoundingClientRect();
+      let on;
+      if (style.position === 'sticky') {
+        const stickTop = parseFloat(style.top) || 0;
+        on = Math.abs(rect.top - stickTop) <= 1.5;   // 정확히 붙어 있을 때만
+      } else {
+        const vh = window.innerHeight;
+        on = rect.top <= vh * 0.35 && rect.bottom >= vh * 0.2;
+      }
+      aboutPhoto.classList.toggle('is-stuck', on);
+    };
+    const requestPhoto = () => {
+      if (!photoTicking) {
+        photoTicking = true;
+        window.requestAnimationFrame(checkPhoto);
+      }
+    };
+    window.addEventListener('scroll', requestPhoto, { passive: true });
+    window.addEventListener('resize', requestPhoto);
+    checkPhoto();
+  }
+
+  /* ---------------------------------------------------------
    * YouTube helpers
    * ------------------------------------------------------- */
   function ytThumbSrc(id) {
