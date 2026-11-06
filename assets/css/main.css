@@ -858,6 +858,11 @@ section {
   .hero { min-height: calc(100svh - var(--topbar-h)); }
 }
 
+/* 휴대폰: 첫 화면이 한 화면을 다 쓰지 않도록 — 아래로 Works가 보이기 시작 */
+@media (max-width: 767.98px) {
+  .hero { min-height: min(calc(100svh - var(--topbar-h)), 76svh); }
+}
+
 .hero-bar {
   display: flex;
   align-items: center;
@@ -906,11 +911,26 @@ section {
   z-index: -2;
 }
 
+/* 모니터에 걸린 대표작 장면 — 문구가 주인공이 되도록 어둡고 흐리게 */
+.hero-media img,
 .hero-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
+  opacity: 0.3;
+  filter: saturate(0.8);
+}
+
+/* 가장자리를 더 어둡게 — 모니터 표시와 문구가 장면에 묻히지 않도록 */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(20, 23, 27, 0.75) 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media img { animation: fade-in 1.6s var(--ease) 0.3s both; }
 }
 
 /* 프로그램 모니터 오버레이 — 세이프 에어리어 모서리, 상태 표시, 재생 바 */
@@ -1058,26 +1078,6 @@ section {
   .hero-line + .hero-line { padding-left: 0; }
 }
 
-/* 강조 단어의 잔상 — 어니언 스킨처럼 강조색 사본이 글자 뒤 오른쪽 아래에 겹침
-   (.echo는 inline 그대로 둬서 '영상|으로' 사이에서 줄이 바뀌지 않도록 함) */
-.echo {
-  position: relative;
-  z-index: 0;                 /* 잔상(z-index:-1)이 이 단어 뒤, 배경 위에 그려지도록 */
-}
-
-.echo-ghost {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  color: var(--accent);
-  opacity: 0.6;
-  translate: 0.055em 0.055em;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;          /* 문구를 복사할 때 단어가 두 번 들어가지 않도록 */
-}
-
 .hero-id {
   display: flex;
   flex-wrap: wrap;
@@ -1108,19 +1108,30 @@ section {
   font-family: var(--font-sans);
 }
 
+/* 대표작 재생 — 첫 화면에서 가장 먼저 눌러야 할 버튼이므로 강조색 */
 .showreel-open {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
+  min-height: 40px;
+  padding: 0 18px 0 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
   font-size: var(--fs-small);
-  color: var(--text);
+  font-weight: 600;
+  color: var(--c-sidebar);
   cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
-.showreel-open:hover { color: var(--accent); }
+.showreel-open i { font-size: 1.125rem; line-height: 1; }
+
+.showreel-open:hover,
+.showreel-open:focus-visible {
+  background: transparent;
+  color: var(--accent);
+}
 
 /* WORKS — 목록형 ------------------------------------------- */
 .work-group + .work-group { margin-top: clamp(4rem, 3rem + 3vw, 6.5rem); }
@@ -1167,12 +1178,56 @@ section {
 
 .work-link {
   display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 13rem) minmax(1.5rem, auto);
-  grid-template-areas: "no name cat go";
+  grid-template-columns: clamp(8rem, 5rem + 6vw, 12rem) 3.5rem minmax(0, 1fr) minmax(0, 10rem) minmax(1.5rem, auto);
+  grid-template-areas: "thumb no name cat go";
   align-items: baseline;
   gap: 8px 24px;
   padding-block: clamp(1.4rem, 1rem + 1.2vw, 2.25rem);
   color: var(--text);
+}
+
+/* 상시 썸네일 — 호버 없이도(모바일·키보드) 작품의 색감과 장면을 먼저 보여 줌 */
+.work-thumb {
+  grid-area: thumb;
+  align-self: center;
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--placeholder);
+}
+
+.work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* YouTube 썸네일(4:3)의 위아래 검은 띠는 잘려 나감 */
+  filter: brightness(0.86);
+  transition: transform 0.6s var(--ease), filter 0.4s var(--ease);
+}
+
+a.work-link:hover .work-thumb img,
+a.work-link:focus-visible .work-thumb img {
+  transform: scale(1.05);
+  filter: none;
+}
+
+/* 준비 중: 같은 크기의 빈 칸 */
+.work-thumb--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px dashed color-mix(in srgb, var(--text) 18%, transparent);
+}
+
+.work-thumb--empty::after {
+  content: "OFFLINE";
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  opacity: 0.6;
 }
 
 .work-no {
@@ -1184,14 +1239,15 @@ section {
 
 .work-name {
   grid-area: name;
-  font-size: clamp(1.625rem, 1rem + 2.6vw, 3.25rem);
+  font-size: clamp(1.5rem, 0.9rem + 1.9vw, 2.75rem);   /* 썸네일 칸이 생긴 만큼 조금 작게 */
+  text-wrap: balance;
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.15;
   transition: transform 0.5s var(--ease);
 }
 
-.work-list--design .work-name { font-size: clamp(1.375rem, 1rem + 1.6vw, 2.25rem); }
+.work-list--design .work-name { font-size: clamp(1.375rem, 0.9rem + 1.4vw, 2.125rem); }
 
 .work-cat {
   grid-area: cat;
@@ -1256,11 +1312,15 @@ a.work-link:focus-visible .work-go {
   .work-link {
     grid-template-columns: 1fr auto;
     grid-template-areas:
+      "thumb thumb"
       "no go"
       "name name"
       "cat cat";
     gap: 6px 16px;
   }
+
+  .work-thumb { margin-bottom: 10px; }
+  .work-thumb--empty { aspect-ratio: 32 / 9; }   /* 준비 중 칸은 낮게 — 목록이 빈 칸으로 길어지지 않도록 */
 }
 
 /* 커서를 따라다니는 미리보기 — JS가 생성, 썸네일이 있는 항목에서만 표시 */
@@ -1354,11 +1414,15 @@ a.work-link:focus-visible .work-go {
   object-position: 50% 20%;
   background: var(--placeholder);
   filter: grayscale(1) contrast(1.06);
-  transition: filter 1s var(--ease);
+  transition: filter 0.6s var(--ease);   /* 흑백으로 돌아갈 때는 짧게 */
 }
 
-/* 화면에 고정되어 있는 동안만 컬러 (JS가 .is-pinned 부여) */
-.about-photo.is-pinned img { filter: none; }
+/* 사진이 충분히 보이는 동안 컬러 (JS가 .is-in-view 부여)
+   — 와이프 전환이 지나간 뒤 0.3초 쉬고, 현상되듯 1.2초에 걸쳐 색이 올라옴 */
+.about-photo.is-in-view img {
+  filter: none;
+  transition: filter 1.2s var(--ease) 0.3s;
+}
 
 .about-photo figcaption {
   display: flex;
@@ -1436,6 +1500,18 @@ a.work-link:focus-visible .work-go {
   letter-spacing: -0.015em;
 }
 
+.cv-sub {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.about-link { margin-top: 2em; }
+
 .cv-item {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -1469,50 +1545,43 @@ a.work-link:focus-visible .work-go {
   .cv-item { grid-template-columns: 1fr; }
 }
 
-/* CONTACT — 엔딩 크레딧 ---------------------------------------- */
+/* CONTACT — 연락처 먼저, 엔딩 크레딧은 한 줄로 -------------------- */
 .contact {
-  padding-block: calc(var(--section-py) * 1.2);
+  padding-block: var(--section-py);
   text-align: center;
 }
 
 .contact-tc {
-  margin-bottom: clamp(3.5rem, 2rem + 5vw, 7rem);
+  margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
   letter-spacing: 0.08em;
 }
 
-.credits {
-  display: grid;
-  gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+.contact-end h2 { margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem); }
+
+/* 엔딩 크레딧 — 역할 목록(모노) 아래 이름 한 번 */
+.credits-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(4rem, 2.5rem + 5vw, 7rem);
+  padding-top: clamp(2rem, 1.5rem + 1.5vw, 3rem);
+  border-top: 1px solid var(--line);
 }
 
-/* 역할은 가운데 기준 오른쪽 정렬, 이름은 왼쪽 정렬 — 영화 크레딧 배치 */
-.credit {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: baseline;
-  gap: 0 clamp(1rem, 0.5rem + 2vw, 2.5rem);
-}
-
-.credit dt {
+.credits-roles {
   font-family: var(--font-mono);
   font-size: var(--fs-meta);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  text-align: right;
   color: var(--muted);
 }
 
-.credit dd {
-  margin: 0;
-  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+.credits-name {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  text-align: left;
 }
-
-.contact-end { margin-top: clamp(6rem, 3rem + 9vw, 11rem); }
-
-.contact-end h2 { margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem); }
 
 .contact-mail {
   display: inline-block;
@@ -1623,10 +1692,21 @@ a.work-link:focus-visible .work-go {
   border-top: 1px solid var(--line);
 }
 
-.work-block:first-child {
+/* 보이는 항목 중 첫 번째 (hidden 항목은 건너뜀) */
+.work-block:first-child,
+.work-block:not([hidden]):not(.work-block:not([hidden]) ~ .work-block) {
   padding-top: 0;
   border-top: 0;
 }
+
+/* 설명을 채우기 전 안내 — 항목이 하나라도 보이면 자동으로 숨김 */
+.work-pending-note {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.work-body:has(.work-block:not([hidden])) .work-pending-note { display: none; }
 
 .work-block h2 {
   font-size: 1.0625rem;
@@ -1719,12 +1799,14 @@ a.work-link:focus-visible .work-go {
     gap: 12px;
   }
 
-  .work-pager .wrap { grid-template-columns: 1fr 1fr; }
-  .work-pager .pager-list { display: none; }
+  /* 모바일에서도 가운데 목록 버튼 유지 (아이콘만) — 끝까지 본 뒤 목록으로 돌아갈 수 있도록 */
+  .work-pager .pager-list { padding-inline: 16px; }
+  .work-pager .pager-list span { display: none; }
   .pager-title { font-size: var(--fs-small); }
 
   .work-pager--solo .wrap { grid-template-columns: 1fr; }
   .work-pager--solo .pager-list { display: flex; }
+  .work-pager--solo .pager-list span { display: inline; }   /* 버튼이 하나뿐이면 '목록' 글자도 표시 */
   .work-pager--solo span:empty { display: none; }
 }
 
@@ -1772,21 +1854,17 @@ a.work-link:focus-visible .work-go {
 
   .hero-line + .hero-line { animation-delay: 0.45s; }
 
-  /* 잔상: 각 줄의 와이프가 끝난 직후, 글자 뒤에 숨어 있다가 빠져나오며 페이드 */
-  .echo-ghost { animation: echo-out 1.1s var(--ease) 1.05s both; }
-  .hero-line + .hero-line .echo-ghost { animation-delay: 1.4s; }
-
   /* 텍스트 커서: 와이프가 끝난 뒤부터 깜빡임 */
   .hero-line:last-child::after {
     opacity: 0;
-    animation: caret-blink 1.06s linear 1.3s infinite;
+    animation: caret-blink 1.06s linear 1.3s 5 forwards;   /* 다섯 번 깜빡인 뒤 켜진 채로 멈춤 — 반복 점멸 줄이기 */
   }
 
   /* 모니터: 모서리가 초점을 맞추듯 안쪽으로 모이고, 문구가 나온 뒤 상태 표시·재생 바 등장 */
   .monitor-corner { animation: corner-in 0.9s var(--ease) 0.1s both; }
   .monitor-top,
   .monitor-transport { animation: fade-in 0.6s var(--ease) 1.1s both; }
-  .monitor-rec-dot { animation: rec-blink 1.6s steps(1) 1.7s infinite; }
+  .monitor-rec-dot { animation: rec-blink 1.6s steps(1) 1.7s 3; }   /* 세 번 깜빡인 뒤 켜진 채로 */
 
   /* 사이드바 파형: 위에서 아래로 한 번 그려지며 등장 */
   .timeline-track > .timeline-wave { animation: wave-in 1.4s var(--ease-wipe) 0.3s both; }
@@ -1834,17 +1912,14 @@ a.work-link:focus-visible .work-go {
 
   .has-wipe.is-wiped::before { transform: translateX(100%); }
 
-  /* Contact 크레딧: 한 줄씩 올라오고 마지막에 연락처 (JS가 .has-roll, .is-rolled 부여) */
-  .has-roll .credit,
-  .has-roll .contact-end {
+  /* Contact 엔딩 크레딧: 연락처는 바로 보이고, 크레딧 한 줄만 아래에서 올라옴 (JS가 .has-roll, .is-rolled 부여) */
+  .has-roll .credits-line {
     opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 0.9s var(--ease), transform 1.2s var(--ease);
-    transition-delay: calc(var(--i, 0) * 140ms);
+    transform: translateY(24px);
+    transition: opacity 0.9s var(--ease), transform 1.1s var(--ease);
   }
 
-  .has-roll .is-rolled .credit,
-  .has-roll .contact-end.is-rolled {
+  .has-roll .credits-line.is-rolled {
     opacity: 1;
     transform: none;
   }
@@ -1862,16 +1937,10 @@ a.work-link:focus-visible .work-go {
 }
 
 @keyframes caret-blink {
-  0%, 49.9% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%, 49.9% { opacity: 0; }
+  50%, 100% { opacity: 1; }   /* 마지막 프레임이 '켜짐' — forwards로 멈추면 커서가 남음 */
 }
 
-@keyframes echo-out {
-  from {
-    opacity: 0;
-    translate: 0 0;
-  }
-}
 
 @keyframes corner-in {
   from {

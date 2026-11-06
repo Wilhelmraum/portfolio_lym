@@ -8,10 +8,10 @@
  *  initFontGate       서체가 준비되면 첫 화면 애니메이션 시작
  *  initNavDrawer      모바일 메뉴 열기·닫기
  *  initTimeline       스크롤 위치를 60초 영상의 타임코드로 표시 (사이드바 파형 · 상단 바 · Home 모니터)
- *  initAboutPhoto     프로필 사진이 고정되어 있는 동안만 컬러
+ *  initAboutPhoto     프로필 사진이 충분히 보이는 동안 컬러
  *  initWorkReveal     Works 목록 등장 효과
  *  initWorkPreview    Works 목록 마우스 미리보기
- *  initPlayCursor     Works 목록 위 원형 커서 (PLAY · VIEW · SOON)
+ *  initPlayCursor     Works 목록 위 원형 커서 (VIEW · SOON)
  *  initSectionWipe    배경색이 바뀌는 섹션의 와이프 전환
  *  initCredits        Contact 엔딩 크레딧 등장
  *  initVideoEmbeds    상세 페이지 YouTube 플레이어
@@ -329,31 +329,33 @@
   }
 
   /* ---------------------------------------------------------
-   * About photo — 고정(sticky)되어 있는 동안만 흑백 → 컬러
-   *  - PC: sticky 위치에 붙어 있을 때만 컬러, 고정이 풀리면 다시 흑백
-   *  - 모바일(고정 없음): 화면 위쪽 구간(20~35%)을 지나는 동안만 컬러
+   * About photo — 사진이 충분히 보이는 동안 흑백 → 컬러
+   *  - 60% 이상 보이면 컬러, 25% 아래로 줄면 다시 흑백 (기준을 둘로 나눠 경계에서 깜빡이지 않도록)
+   *  - PC·모바일 같은 기준. sticky 여부와 관계없이 '시선이 머무는 동안' 컬러
    * ------------------------------------------------------- */
+  const PHOTO_COLOR_IN = 0.6;
+  const PHOTO_COLOR_OUT = 0.25;
+
   function initAboutPhoto() {
     const photo = $('.about-photo');
     if (!photo) return;
 
-    function update() {
-      const style = getComputedStyle(photo);
-      const rect = photo.getBoundingClientRect();
-      let pinned;
-      if (style.position === 'sticky') {
-        pinned = Math.abs(rect.top - (parseFloat(style.top) || 0)) <= 1.5;
-      } else {
-        const vh = window.innerHeight;
-        pinned = rect.top <= vh * 0.35 && rect.bottom >= vh * 0.2;
-      }
-      photo.classList.toggle('is-pinned', pinned);
+    const setColor = (ratio) => {
+      if (ratio >= PHOTO_COLOR_IN) photo.classList.add('is-in-view');
+      else if (ratio < PHOTO_COLOR_OUT) photo.classList.remove('is-in-view');
+      // 그 사이(25~60%)에서는 직전 상태를 유지
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      photo.classList.add('is-in-view');   // 판별할 수 없으면 컬러로
+      return;
     }
 
-    const scheduled = onFrame(update);
-    window.addEventListener('scroll', scheduled, { passive: true });
-    window.addEventListener('resize', scheduled);
-    update();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => setColor(entry.intersectionRatio));
+    }, { threshold: [0, PHOTO_COLOR_OUT, 0.4, PHOTO_COLOR_IN, 0.8, 1] });
+
+    observer.observe(photo);
   }
 
   /* ---------------------------------------------------------
@@ -463,7 +465,6 @@
    *  영상 작업: ▶ PLAY / 디자인 작업: VIEW ↗ / 공개 전: SOON
    * ------------------------------------------------------- */
   const CURSOR_LABELS = {
-    play: '<i class="bi bi-play-fill"></i>PLAY',
     view: 'VIEW<i class="bi bi-arrow-up-right"></i>',
     soon: 'SOON'
   };
@@ -512,9 +513,8 @@
     }
 
     rows.forEach((row) => {
-      let kind = 'play';
-      if (row.classList.contains('is-upcoming')) kind = 'soon';
-      else if (row.closest('.work-list--design')) kind = 'view';
+      // 목록에서 누르면 상세 페이지로 이동하므로 'VIEW' — 재생은 상세 페이지의 플레이어가 담당
+      const kind = row.classList.contains('is-upcoming') ? 'soon' : 'view';
 
       function show(e) {
         cursor.innerHTML = CURSOR_LABELS[kind];
@@ -576,12 +576,12 @@
   }
 
   /* ---------------------------------------------------------
-   * Credits — Contact의 크레딧이 한 줄씩 올라오고, 마지막에 연락처 등장 (1회)
+   * Credits — Contact 아래 엔딩 크레딧 한 줄이 올라옴 (1회). 연락처는 기다리지 않고 바로 보임
    * ------------------------------------------------------- */
   function initCredits() {
     const contact = $('.contact');
-    const groups = contact ? $$('.credits, .contact-end', contact) : [];
-    if (!groups.length || reduceMotion.matches || !('IntersectionObserver' in window)) return;
+    const line = contact ? $('.credits-line', contact) : null;
+    if (!line || reduceMotion.matches || !('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -589,11 +589,10 @@
         entry.target.classList.add('is-rolled');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold: 0.2 });
 
-    $$('.credit', contact).forEach((item, i) => item.style.setProperty('--i', i));
     contact.classList.add('has-roll');
-    groups.forEach((group) => observer.observe(group));
+    observer.observe(line);
   }
 
   /* ---------------------------------------------------------
@@ -656,10 +655,12 @@
     if (!YT_ID.test(id)) return;
 
     const frame = $('.reel-frame', dialog);
+    const title = hero.getAttribute('data-showreel-title') || '이영민 쇼릴';
+    dialog.setAttribute('aria-label', title);
     button.hidden = false;
 
     button.addEventListener('click', () => {
-      frame.replaceChildren(youTubeIframe(id, '이영민 쇼릴'));
+      frame.replaceChildren(youTubeIframe(id, title));
       dialog.showModal();
     });
 

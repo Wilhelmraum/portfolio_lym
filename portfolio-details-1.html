@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261106-4">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261106-5">
 </head>
 
 <body>
@@ -114,55 +114,69 @@
       </div>
     </section>
 
-    <!-- ===== WORK: 프로젝트 정보 — 각 항목의 '내용 작성 예정' 문단을 실제 내용으로 바꿉니다 ===== -->
+    <!-- ===== WORK: 프로젝트 정보 =====
+      순서: 개요 → 담당 → 목적 → 제작 판단 → 과정 → (AI 활용) → 회고
+      내용을 채운 항목은 hidden을 지우면 나타납니다. 하나라도 나타나면 맨 위 안내 문구는 자동으로 사라집니다.
+      실제로 하지 않은 과정이나 성과는 쓰지 않습니다.
+    -->
     <section class="work-body theme-light bg-about" aria-label="프로젝트 정보">
       <div class="wrap">
 
-        <div class="work-block">
+        <p class="work-pending-note">작업 설명을 정리하고 있습니다. 영상을 먼저 감상해 주세요.</p>
+
+        <div class="work-block" hidden>
           <h2>프로젝트 개요<span class="work-block-en">Overview</span></h2>
           <div>
-            <!-- TODO: 프로젝트 개요 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 무엇을 만들었나: 개인·수업·실제 의뢰 여부, 제작 시기, 영상 길이 -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>제작 목적<span class="work-block-en">Purpose</span></h2>
-          <div>
-            <!-- TODO: 제작 목적 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
-          </div>
-        </div>
-
-        <div class="work-block">
+        <div class="work-block" hidden>
           <h2>담당 작업<span class="work-block-en">Role</span></h2>
           <div>
-            <!-- TODO: 본인이 담당한 작업 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 실제로 맡은 범위: 기획, 촬영, 편집, 모션, 사운드 등. 사용 도구는 <ul class="tool-list"><li>Premiere Pro</li></ul> -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>사용 도구<span class="work-block-en">Tools</span></h2>
+        <div class="work-block" hidden>
+          <h2>제작 목적<span class="work-block-en">Purpose</span></h2>
           <div>
-            <!-- TODO: 실제 사용한 도구. 예) <ul class="tool-list"><li>Premiere Pro</li></ul> -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 누구에게 무엇을 전달하려 했나 -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
+        <div class="work-block" hidden>
+          <h2>제작 판단<span class="work-block-en">Decisions</span></h2>
+          <div>
+            <!-- 핵심 결정 2~3개: 장면 순서, 컷 길이, 타이포그래피, 음악·효과음 선택의 이유 (음악 전공이 반영된 판단이 있다면 여기에) -->
+            <p></p>
+          </div>
+        </div>
+
+        <div class="work-block" hidden>
           <h2>제작 과정<span class="work-block-en">Process</span></h2>
           <div>
-            <!-- TODO: 주요 제작 과정 (단계별 설명, 필요하면 과정 이미지 추가) -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 증거: 콘티, 타임라인 일부, 전후 비교 이미지 등 -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>최종 결과물<span class="work-block-en">Result</span></h2>
+        <div class="work-block" hidden>
+          <h2>AI 활용 범위<span class="work-block-en">AI Usage</span></h2>
           <div>
-            <!-- TODO: 최종 결과물 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- AI를 썼다면: AI가 생성한 부분 / 직접 통제한 부분(기획·선별) / 직접 후반 작업한 부분 / 발견한 한계와 수정 -->
+            <p></p>
+          </div>
+        </div>
+
+        <div class="work-block" hidden>
+          <h2>회고<span class="work-block-en">Retrospective</span></h2>
+          <div>
+            <!-- 결과와 배운 점, 다시 한다면 바꿀 점 -->
+            <p></p>
           </div>
         </div>
 
@@ -192,7 +206,7 @@
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </a>
 
-  <script src="assets/js/main.js?v=20261106-4"></script>
+  <script src="assets/js/main.js?v=20261106-5"></script>
 
 </body>
 

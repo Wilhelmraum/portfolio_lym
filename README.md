@@ -25,18 +25,22 @@ assets/vendor/              Bootstrap Icons
 
 ## 콘텐츠 넣는 방법
 
+- **작업 공개 원칙**: 결과물(영상·이미지)이 있는 작업만 링크로 공개하고, 나머지는 '준비 중'으로 둡니다.
+  공개 상태를 바꾸면 Works 상단 숫자(`공개 02 · 준비 중 04`)와 상세 페이지의 이전/다음 링크도 함께 맞춥니다. 방법은 `index.html` Works 주석 참고.
 - **영상 (YouTube)**: 영상 ID(11자)를 두 곳에 넣습니다.
-  - `index.html`의 `.work-row` → `data-youtube-id`: 목록에 마우스를 올리면 썸네일 미리보기가 나타납니다.
-  - 상세 페이지의 `.media-frame` → `data-youtube-id`: 클릭하면 재생되는 플레이어가 표시됩니다.
+  - `index.html` 목록: `.work-thumb` 안의 `<img src="https://i.ytimg.com/vi/영상ID/sddefault.jpg">` — 항상 보이는 썸네일
+  - 상세 페이지의 `.media-frame` → `data-youtube-id`: 클릭하면 재생되는 플레이어 (썸네일은 가장 큰 해상도부터 자동 선택)
+  - YouTube에서 '공개' 또는 '일부 공개'여야 재생됩니다.
 - **디자인 이미지**
-  - `index.html`의 `.work-row` → `data-preview-img="assets/img/works/파일명.jpg"`: 목록 미리보기
+  - `index.html` 목록: 행을 링크 구조로 바꾸고 `.work-thumb`에 `<img src="assets/img/works/파일명.jpg" alt="">`
   - 상세 페이지: `.media-placeholder`를 `<img src="assets/img/works/파일명.jpg" alt="설명">`으로 바꿉니다.
-- **쇼릴**: `index.html`의 `#home`에 있는 `data-showreel-id`에 ID를 넣으면 'Showreel' 버튼이 나타납니다.
-  배경 루프 영상은 `.hero-media` 안의 `<video>` 주석을 풀어 사용합니다(짧고 가벼운 파일 권장).
-- **상세 설명**: 각 상세 페이지의 `<!-- TODO -->` 아래 '내용 작성 예정' 문단을 바꿉니다.
+- **대표작 · 쇼릴 (Home)**: `#home`의 `data-showreel-id`·`data-showreel-title`에 넣은 영상이 '대표작 재생' 버튼으로 바로 재생됩니다. 지금은 V01.
+  모니터 배경은 `.hero-media`의 `<img>`(대표작 장면)입니다. 쇼릴이 완성되면 ID·제목·버튼 문구·배경 이미지를 함께 바꿉니다.
+- **상세 설명**: 상세 페이지의 각 항목(개요 → 담당 → 목적 → 제작 판단 → 과정 → AI 활용 → 회고)을 채우고 `hidden`을 지우면 나타납니다.
+  하나라도 나타나면 '정리하고 있습니다' 안내는 자동으로 사라집니다. 실제로 하지 않은 과정이나 성과는 쓰지 않습니다.
 - **페이지 전환**: 목록의 작업 이름(`.work-name`)과 상세 페이지 제목(`h1`)에 같은 `view-transition-name`(예: `work-v01`)이 있어 이름이 이어지듯 옮겨 갑니다.
   V03을 공개하거나 작업을 추가할 때는 두 곳에 같은 이름(`work-v03` 등)을 붙입니다. 페이지마다 이름이 겹치면 안 됩니다.
-- **엔딩 크레딧 (Contact)**: `index.html`의 `.credits` 안에서 `<div class="credit"><dt>역할</dt><dd>이름</dd></div>` 한 줄이 크레딧 한 줄입니다. 줄을 더하거나 빼도 등장 순서가 자동으로 맞춰집니다.
+- **엔딩 크레딧 (Contact)**: 연락처 아래 `.credits-line`의 역할 목록(`.credits-roles`)을 고치면 됩니다.
 - **공유 미리보기 (OG)**: 모든 페이지의 `<head>`에 `og:*` 태그가 있습니다. 링크를 카카오톡·메일·SNS에 붙이면 `assets/img/og-image.png`(1200×630)가 썸네일로 표시됩니다.
   - `og:url`과 `og:image`는 배포 주소(`https://wilhelmraum.github.io/portfolio_lym/`) 기준의 절대 주소입니다. 주소가 바뀌면 7개 파일을 함께 고칩니다.
   - 작업 영상이 생기면 상세 페이지의 `og:image`를 해당 작업의 대표 이미지로 바꾸면 더 좋습니다.
