@@ -26,15 +26,15 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
-  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·보조 정보) -->
+  <!-- Fonts: Pretendard (본문) + JetBrains Mono (타임코드·보조 정보) + Instrument Serif (영문 제목 포인트, 이 페이지만) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
 
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261106">
 </head>
 
 <body>
@@ -245,7 +245,7 @@
     </section>
 
     <!-- ===== ABOUT ===== -->
-    <section id="about" class="about theme-light bg-about" aria-labelledby="about-title">
+    <section id="about" class="about theme-light bg-about" data-wipe aria-labelledby="about-title">
       <div class="wrap">
         <div class="about-grid">
 
@@ -320,24 +320,32 @@
       </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
+    <!-- ===== CONTACT — 엔딩 크레딧 =====
+      크레딧 줄은 .credit 하나가 한 줄입니다. 역할을 바꾸거나 줄을 더해도 등장 효과가 자동으로 맞춰집니다.
+    -->
     <section id="contact" class="contact theme-dark bg-sidebar" aria-labelledby="contact-title">
       <div class="wrap">
 
-        <header class="section-head">
-          <div>
-            <p class="meta-label">00:00:54:00</p>
-            <h2 id="contact-title">Contact</h2>
-          </div>
-        </header>
+        <p class="meta-label contact-tc">00:00:54:00 — Credits</p>
 
-        <a class="contact-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
-        <div class="contact-actions">
-          <a class="btn-line" href="mailto:wilhelmraum@naver.com"><i class="bi bi-envelope" aria-hidden="true"></i> 메일 보내기</a>
-          <button type="button" class="btn-line copy-email" data-copy="wilhelmraum@naver.com">
-            <i class="bi bi-copy" aria-hidden="true"></i> 주소 복사
-          </button>
-          <span class="copy-status" role="status" aria-live="polite"></span>
+        <dl class="credits">
+          <div class="credit"><dt>Edited by</dt><dd>이영민</dd></div>
+          <div class="credit"><dt>Motion Graphics</dt><dd>이영민</dd></div>
+          <div class="credit"><dt>Music &amp; Sound</dt><dd>이영민</dd></div>
+          <div class="credit"><dt>Design</dt><dd>이영민</dd></div>
+          <div class="credit"><dt>Web</dt><dd>이영민</dd></div>
+        </dl>
+
+        <div class="contact-end">
+          <h2 id="contact-title">Contact</h2>
+          <a class="contact-mail" href="mailto:wilhelmraum@naver.com">wilhelmraum@naver.com</a>
+          <div class="contact-actions">
+            <a class="btn-line" href="mailto:wilhelmraum@naver.com"><i class="bi bi-envelope" aria-hidden="true"></i> 메일 보내기</a>
+            <button type="button" class="btn-line copy-email" data-copy="wilhelmraum@naver.com">
+              <i class="bi bi-copy" aria-hidden="true"></i> 주소 복사
+            </button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+          </div>
         </div>
 
       </div>
@@ -368,7 +376,7 @@
     <i class="bi bi-arrow-up" aria-hidden="true"></i>
   </a>
 
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js?v=20261106"></script>
 
 </body>
 

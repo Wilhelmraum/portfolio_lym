@@ -10,6 +10,9 @@
  *  initAboutPhoto     프로필 사진이 고정되어 있는 동안만 컬러
  *  initWorkReveal     Works 목록 등장 효과
  *  initWorkPreview    Works 목록 마우스 미리보기
+ *  initPlayCursor     Works 목록 위 원형 커서 (PLAY · VIEW · SOON)
+ *  initSectionWipe    배경색이 바뀌는 섹션의 와이프 전환
+ *  initCredits        Contact 엔딩 크레딧 등장
  *  initVideoEmbeds    상세 페이지 YouTube 플레이어
  *  initShowreel       쇼릴 다이얼로그
  *  initCopyEmail      이메일 주소 복사
@@ -371,6 +374,8 @@
     return null;
   }
 
+  const PREVIEW_OFFSET = 40;   // 커서에서 썸네일까지 거리 — 원형 커서(지름 56px)와 겹치지 않도록
+
   function initWorkPreview() {
     const rows = $$('.work-row').filter(getPreview);
     if (!rows.length || !hasFinePointer.matches) return;
@@ -401,7 +406,7 @@
     }
 
     function follow(e) {
-      targetX = Math.min(e.clientX + 28, window.innerWidth - box.offsetWidth - 16);
+      targetX = Math.min(e.clientX + PREVIEW_OFFSET, window.innerWidth - box.offsetWidth - 16);
       targetY = Math.min(Math.max(e.clientY - box.offsetHeight / 2, 16), window.innerHeight - box.offsetHeight - 16);
       if (!frame) frame = window.requestAnimationFrame(step);
     }
@@ -413,7 +418,7 @@
         if (img.getAttribute('src') !== preview.src) img.src = preview.src;
         box.classList.toggle('work-preview--4x3', preview.ratio === '4x3');
         if (!visible) {
-          x = targetX = e.clientX + 28;
+          x = targetX = e.clientX + PREVIEW_OFFSET;
           y = targetY = e.clientY;
         }
         visible = true;
@@ -428,6 +433,127 @@
         box.classList.remove('is-visible');
       });
     });
+  }
+
+  /* ---------------------------------------------------------
+   * Play cursor — Works 목록 위에서 커서가 원형 라벨로 바뀜 (마우스 환경만)
+   *  영상 작업: ▶ PLAY / 디자인 작업: VIEW ↗ / 공개 전: SOON
+   * ------------------------------------------------------- */
+  const CURSOR_LABELS = {
+    play: '<i class="bi bi-play-fill"></i>PLAY',
+    view: 'VIEW<i class="bi bi-arrow-up-right"></i>',
+    soon: 'SOON'
+  };
+
+  function initPlayCursor() {
+    const rows = $$('.work-row');
+    if (!rows.length || !hasFinePointer.matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'play-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    body.appendChild(cursor);
+    $$('.work-list').forEach((list) => list.classList.add('has-play-cursor'));
+
+    let targetX = 0;
+    let targetY = 0;
+    let x = 0;
+    let y = 0;
+    let frame = 0;
+    let visible = false;
+
+    // 위치는 transform이 아닌 translate 속성으로 지정 — transform으로 하면 등장할 때의
+    // scale이 위치 값까지 줄여서, 커서가 화면 왼쪽 위에서 날아오는 것처럼 보입니다.
+    function place() {
+      cursor.style.translate = x.toFixed(1) + 'px ' + y.toFixed(1) + 'px';
+    }
+
+    function step() {
+      const ease = reduceMotion.matches ? 1 : 0.25;
+      x += (targetX - x) * ease;
+      y += (targetY - y) * ease;
+      place();
+      const moving = Math.abs(targetX - x) > 0.2 || Math.abs(targetY - y) > 0.2;
+      frame = visible && moving ? window.requestAnimationFrame(step) : 0;
+    }
+
+    function follow(e) {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      if (!frame) frame = window.requestAnimationFrame(step);
+    }
+
+    function hide() {
+      visible = false;
+      cursor.classList.remove('is-visible');
+    }
+
+    rows.forEach((row) => {
+      let kind = 'play';
+      if (row.classList.contains('is-upcoming')) kind = 'soon';
+      else if (row.closest('.work-list--design')) kind = 'view';
+
+      function show(e) {
+        cursor.innerHTML = CURSOR_LABELS[kind];
+        cursor.className = 'play-cursor play-cursor--' + kind;
+        x = targetX = e.clientX;
+        y = targetY = e.clientY;
+        place();   // 현재 마우스 위치에서 바로 커지며 등장
+        visible = true;
+        cursor.classList.add('is-visible');
+      }
+
+      row.addEventListener('pointerenter', show);
+      // 스크롤로 숨겨진 뒤 같은 줄 안에서 마우스를 움직이면 다시 표시
+      row.addEventListener('pointermove', (e) => (visible ? follow(e) : show(e)));
+      row.addEventListener('pointerleave', hide);
+    });
+
+    // 마우스를 멈춘 채 스크롤하면 커서가 엉뚱한 줄에 남지 않도록 숨김
+    window.addEventListener('scroll', () => { if (visible) hide(); }, { passive: true });
+  }
+
+  /* ---------------------------------------------------------
+   * Section wipe — 배경색이 바뀌는 섹션에 들어가면 이전 색이 오른쪽으로 쓸려 나감 (1회)
+   *  [data-wipe] 섹션에만 동작하며, 이전 색은 CSS의 --wipe-from으로 지정합니다.
+   * ------------------------------------------------------- */
+  function initSectionWipe() {
+    const sections = $$('[data-wipe]');
+    if (!sections.length || reduceMotion.matches || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-wiped');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -40% 0px' });
+
+    sections.forEach((section) => {
+      section.classList.add('has-wipe');
+      observer.observe(section);
+    });
+  }
+
+  /* ---------------------------------------------------------
+   * Credits — Contact의 크레딧이 한 줄씩 올라오고, 마지막에 연락처 등장 (1회)
+   * ------------------------------------------------------- */
+  function initCredits() {
+    const contact = $('.contact');
+    const groups = contact ? $$('.credits, .contact-end', contact) : [];
+    if (!groups.length || reduceMotion.matches || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-rolled');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+    $$('.credit', contact).forEach((item, i) => item.style.setProperty('--i', i));
+    contact.classList.add('has-roll');
+    groups.forEach((group) => observer.observe(group));
   }
 
   /* ---------------------------------------------------------
@@ -545,6 +671,9 @@
   initAboutPhoto();
   initWorkReveal();
   initWorkPreview();
+  initPlayCursor();
+  initSectionWipe();
+  initCredits();
   initVideoEmbeds();
   initShowreel();
   initCopyEmail();

@@ -33,6 +33,7 @@ assets/vendor/              Bootstrap Icons
 - **쇼릴**: `index.html`의 `#home`에 있는 `data-showreel-id`에 ID를 넣으면 'Showreel' 버튼이 나타납니다.
   배경 루프 영상은 `.hero-media` 안의 `<video>` 주석을 풀어 사용합니다(짧고 가벼운 파일 권장).
 - **상세 설명**: 각 상세 페이지의 `<!-- TODO -->` 아래 '내용 작성 예정' 문단을 바꿉니다.
+- **엔딩 크레딧 (Contact)**: `index.html`의 `.credits` 안에서 `<div class="credit"><dt>역할</dt><dd>이름</dd></div>` 한 줄이 크레딧 한 줄입니다. 줄을 더하거나 빼도 등장 순서가 자동으로 맞춰집니다.
 - **공유 미리보기 (OG)**: 모든 페이지의 `<head>`에 `og:*` 태그가 있습니다. 링크를 카카오톡·메일·SNS에 붙이면 `assets/img/og-image.png`(1200×630)가 썸네일로 표시됩니다.
   - `og:url`과 `og:image`는 배포 주소(`https://wilhelmraum.github.io/portfolio_lym/`) 기준의 절대 주소입니다. 주소가 바뀌면 7개 파일을 함께 고칩니다.
   - 작업 영상이 생기면 상세 페이지의 `og:image`를 해당 작업의 대표 이미지로 바꾸면 더 좋습니다.
@@ -58,6 +59,8 @@ Home은 편집 프로그램의 프로그램 모니터처럼 연출합니다(`.mo
 
 - 색상·서체·간격은 `main.css` 맨 위 `:root`의 변수로만 지정합니다. 값을 직접 쓰지 않습니다.
 - 섹션은 `theme-dark` 또는 `theme-light` 하나와 `bg-*` 하나를 함께 씁니다.
+- 배경색이 바뀌는 섹션에는 `data-wipe`를 붙이고, CSS에서 이전 섹션 색을 `--wipe-from`으로 지정하면 와이프 전환이 적용됩니다. (현재 About)
+- 세리프(`--font-serif`, Instrument Serif)는 영문 제목 포인트에만 씁니다. 한글이 없으므로 한글 제목에는 쓰지 않습니다.
 - 움직임은 모두 `prefers-reduced-motion: no-preference` 안에서만 동작합니다.
 
 **JavaScript**
@@ -73,6 +76,8 @@ Home은 편집 프로그램의 프로그램 모니터처럼 연출합니다(`.mo
 
 ## 주의
 
+- **CSS·JS를 고친 뒤에는 버전을 올립니다.** 7개 HTML 파일의 `main.css?v=…`, `main.js?v=…` 값을 수정한 날짜(예: `20261106` → `20261120`)로 함께 바꿉니다.
+  GitHub Pages는 파일을 최대 10분 동안 캐시하므로, 버전을 바꾸지 않으면 방문자가 새 HTML과 예전 CSS·JS를 섞어서 받을 수 있습니다.
 - 파일·폴더 이름은 영문 소문자와 하이픈을 사용합니다. (GitHub Pages는 대소문자를 구분합니다)
 - 개인정보가 담긴 원본 문서는 올리지 않습니다. `.gitignore` 참고.
 
