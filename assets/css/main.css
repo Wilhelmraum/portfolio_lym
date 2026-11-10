@@ -1761,47 +1761,94 @@ a.work-link:focus-visible .work-go {
   color: var(--muted);
 }
 
-.screens-grid {
+/* 한 줄에 화면 하나 — 화면은 크게, 설명은 옆에. 줄마다 좌우를 바꿔 지루하지 않게 */
+.screens-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px 24px;
-  align-items: start;
+  gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
 }
 
-.screens-grid img {
+.screen-row {
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: center;
+}
+
+.screen-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
+.screen-row:nth-child(even) img { order: 2; }
+
+.screen-row img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.screens-grid figcaption {
-  padding-inline: 14%;   /* 이미지 안 화면 폭에 맞춰 글을 정렬 */
-  font-size: var(--fs-small);
+.screen-row figcaption {
+  max-width: 400px;
   color: var(--muted);
 }
 
-.screens-grid figcaption strong {
-  display: block;
-  margin-bottom: 2px;
-  color: var(--text);
-  font-weight: 600;
-}
+.screen-row:nth-child(even) figcaption { justify-self: end; }
 
-.screens-grid .screen-no {
-  margin-right: 6px;
+.screen-no {
+  display: block;
   font-family: var(--font-mono);
   font-size: var(--fs-meta);
-  font-weight: 400;
+  letter-spacing: 0.08em;
   color: var(--muted);
+}
+
+.screen-row figcaption strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.screen-row figcaption p { margin-top: 12px; }
+
+.screen-points {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+}
+
+.screen-points li { position: relative; padding-left: 14px; }
+.screen-points li + li { margin-top: 6px; }
+
+.screen-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 5px;
+  height: 1px;
+  background: currentColor;
 }
 
 @media (max-width: 767.98px) {
-  .screens-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 12px;
+  .screen-row,
+  .screen-row:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
-  .screens-grid figcaption { padding-inline: 8%; }
+  .screen-row img,
+  .screen-row:nth-child(even) img {
+    order: 0;
+    max-width: 360px;
+    margin-inline: auto;
+  }
+
+  .screen-row figcaption,
+  .screen-row:nth-child(even) figcaption {
+    justify-self: stretch;
+    max-width: none;
+    padding-inline: 4px;
+  }
 }
 
 /* Figma 프로토타입 — 미리보기 이미지를 누르면 그 자리에서 불러옴 (initFigmaEmbeds) */
