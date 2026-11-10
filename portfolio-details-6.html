@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
 
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261106-9">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261110-1">
 </head>
 
 <body>
@@ -120,64 +120,95 @@
 
         <p class="meta-label">Design Work 03</p>
         <h1 id="work-title" style="view-transition-name: work-d03">제품 상세페이지 디자인</h1>
-        <p class="work-type">Product Detail Page</p>
+        <p class="work-type">운무산맥 · 오브제형 프리미엄 가습기 상세페이지</p>
 
-        <!-- 대표 이미지: .media-placeholder를 <img src="assets/img/works/파일명.jpg" alt="설명">으로 바꿉니다. -->
-        <div class="media-frame media-frame--4x3">
-          <div class="media-placeholder"><span>이미지 준비 중</span></div>
-        </div>
+        <!-- 상세페이지 전체: Figma에서 섹션별로 내보낸 이미지(assets/img/works/unmu/)를 순서대로 이어 붙여 원본 그대로 보여 줌 -->
+        <figure class="longpage">
+          <figcaption class="longpage-head">
+            <span>Full Page</span>
+            <span>860 × 15,354 px · 12 Sections</span>
+          </figcaption>
+          <div class="longpage-frame">
+            <img src="assets/img/works/unmu/unmu-00-hero.jpg" alt="운무산맥 상세페이지 Hero — 내 공간에 자연을 담다." width="1280" height="2069" fetchpriority="high" decoding="async">
+            <img src="assets/img/works/unmu/unmu-01-concept.jpg" alt="01 Concept — 평범한 공간에 감각을 더하다. 제품을 놓기 전과 후의 책상 비교" width="1280" height="1158" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-02-object-design.jpg" alt="02 Object Design — 작동을 멈춰도, 풍경은 남습니다." width="1280" height="1661" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-03-mist.jpg" alt="03 Mist — 골짜기 사이로 피어오르는 운무." width="1280" height="1344" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-04-four-seasons.jpg" alt="04 Four Seasons — 사계절을 함께. 봄·여름·가을·겨울 에디션" width="1280" height="2381" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-05-mood-light.jpg" alt="05 Mood Light — 새벽·아침·노을·밤, 시간대별 무드 라이트" width="1280" height="1314" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-06-customize.jpg" alt="06 Customize — 나만의 산을 완성하다. 기본 산맥, 기본 액세서리, 운뭉이" width="1280" height="2371" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-07-detail.jpg" alt="07 Detail — 작은 산맥에 담긴 디테일. 제품 부위별 설명" width="1280" height="2603" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-08-performance.jpg" alt="08 Performance — 촉촉함은 오래도록. 물통 용량, 연속 사용 시간, 분무량, 권장 면적" width="1280" height="1387" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-09-quiet-safe.jpg" alt="09 Quiet &amp; Safe — 고요한 공간을 방해하지 않도록." width="1280" height="1630" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-10-easy-care.jpg" alt="10 Easy Care — 매일 사용하는 만큼, 관리도 간편하게. 분리·세척·급수·결합" width="1280" height="1305" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-11-package.jpg" alt="11 Package — 운무산맥을 온전히 담아. 패키지와 구성품" width="1280" height="2063" loading="lazy" decoding="async">
+            <img src="assets/img/works/unmu/unmu-12-your-mountain.jpg" alt="12 Your Mountain — 당신만의 산을 만나보세요." width="1280" height="1566" loading="lazy" decoding="async">
+          </div>
+        </figure>
       </div>
     </section>
 
-    <!-- ===== WORK: 프로젝트 정보 — 각 항목의 '내용 작성 예정' 문단을 실제 내용으로 바꿉니다 ===== -->
+    <!-- ===== WORK: 프로젝트 정보 =====
+      순서: 개요 → 담당 → 목적 → 제작 판단 → 과정 → (AI 활용) → 회고
+      내용을 채운 항목은 hidden을 지우면 나타납니다. 하나라도 나타나면 맨 위 안내 문구는 자동으로 사라집니다.
+      실제로 하지 않은 과정이나 성과는 쓰지 않습니다.
+    -->
     <section class="work-body theme-light bg-about" aria-label="프로젝트 정보">
       <div class="wrap">
+
+        <p class="work-pending-note">작업 설명을 정리하고 있습니다. 상세페이지를 먼저 감상해 주세요.</p>
 
         <div class="work-block">
           <h2>프로젝트 개요<span class="work-block-en">Overview</span></h2>
           <div>
-            <!-- TODO: 프로젝트 개요 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 개인·수업·실제 의뢰 여부, 제작 시기를 확인해 덧붙이기 -->
+            <p>가습기 브랜드 ‘운무산맥’의 제품 상세페이지입니다. 산맥 모양의 오브제형 가습기를 계절(사계절 에디션), 빛(무드 라이트), 풍경(액세서리·운뭉이) 세 가지 선택지로 소개하는 12개 섹션으로 구성했습니다.</p>
+          </div>
+        </div>
+
+        <div class="work-block" hidden>
+          <h2>담당 작업<span class="work-block-en">Role</span></h2>
+          <div>
+            <!-- 실제로 맡은 범위: 기획, 카피, 이미지 제작·보정, 레이아웃 등. 사용 도구는 <ul class="tool-list"><li>Figma</li></ul> -->
+            <p></p>
           </div>
         </div>
 
         <div class="work-block">
           <h2>제작 목적<span class="work-block-en">Purpose</span></h2>
           <div>
-            <!-- TODO: 제작 목적 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <p>기능만을 위한 가습기가 아니라 공간에 두고 싶은 하나의 오브제라는 점을 전하는 것, 그리고 계절과 빛과 작은 풍경을 골라 ‘나만의 산’을 완성하는 경험이 구매 선택으로 자연스럽게 이어지도록 하는 것을 목표로 했습니다.</p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>담당 작업<span class="work-block-en">Role</span></h2>
+        <div class="work-block" hidden>
+          <h2>제작 판단<span class="work-block-en">Decisions</span></h2>
           <div>
-            <!-- TODO: 본인이 담당한 작업 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 핵심 결정 2~3개: 섹션 순서, 브랜드 가이드(서체·색) 적용, 레이아웃 체계 등의 이유 -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>사용 도구<span class="work-block-en">Tools</span></h2>
-          <div>
-            <!-- TODO: 실제 사용한 도구. 예) <ul class="tool-list"><li>Premiere Pro</li></ul> -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
-          </div>
-        </div>
-
-        <div class="work-block">
+        <div class="work-block" hidden>
           <h2>제작 과정<span class="work-block-en">Process</span></h2>
           <div>
-            <!-- TODO: 주요 제작 과정 (단계별 설명, 필요하면 과정 이미지 추가) -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 섹션별 카피·연출 기획 → 레퍼런스 시안 → 브랜드 가이드 → 디자인 → 정리 (실제 과정에 맞게) -->
+            <p></p>
           </div>
         </div>
 
-        <div class="work-block">
-          <h2>최종 결과물<span class="work-block-en">Result</span></h2>
+        <div class="work-block" hidden>
+          <h2>AI 활용 범위<span class="work-block-en">AI Usage</span></h2>
           <div>
-            <!-- TODO: 최종 결과물 -->
-            <p class="is-pending">내용 작성 예정입니다.</p>
+            <!-- 이미지 생성에 쓴 도구, 직접 통제한 부분(기획·선별·배치), 직접 수정한 부분 -->
+            <p></p>
+          </div>
+        </div>
+
+        <div class="work-block" hidden>
+          <h2>회고<span class="work-block-en">Retrospective</span></h2>
+          <div>
+            <!-- 결과와 배운 점, 다시 한다면 바꿀 점 -->
+            <p></p>
           </div>
         </div>
 
@@ -187,7 +218,7 @@
     <!-- ===== WORK: 이전 / 다음 작업 ===== -->
     <nav class="work-pager theme-dark bg-sidebar" aria-label="다른 작업">
       <div class="wrap">
-        <a class="pager-prev" href="portfolio-details-5.html"><span class="pager-label"><i class="bi bi-arrow-left" aria-hidden="true"></i> Prev</span><span class="pager-title">Figma 앱 UI 디자인</span></a>
+        <a class="pager-prev" href="portfolio-details-2.html"><span class="pager-label"><i class="bi bi-arrow-left" aria-hidden="true"></i> Prev</span><span class="pager-title">운무산맥 제품 광고영상</span></a>
         <a class="pager-list" href="index.html#works"><i class="bi bi-grid" aria-hidden="true"></i><span>목록</span></a>
         <span></span>
       </div>

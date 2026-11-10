@@ -1714,6 +1714,35 @@ a.work-link:focus-visible .work-go {
 .work-hero .media-frame { margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
 .work-hero .media-frame--4x3 { max-width: 820px; } /* 세로로 너무 길어지지 않도록 */
 
+/* 상세페이지 전체 보기 — 섹션별로 내보낸 이미지를 이어 붙여 원본 디자인 그대로 보여 줌 */
+.longpage {
+  max-width: 720px;
+  margin: clamp(2.5rem, 2rem + 2vw, 3.5rem) auto 0;
+}
+
+.longpage-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+
+.longpage-frame {
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+.longpage-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .work-notice {
   margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
   padding: 28px 30px;
