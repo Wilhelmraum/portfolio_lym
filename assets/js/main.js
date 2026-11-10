@@ -643,6 +643,32 @@
   }
 
   /* ---------------------------------------------------------
+   * Figma prototype embeds — 상세 페이지 .media-frame[data-embed-src]
+   *  미리보기 이미지(새 창 링크)를 먼저 보여 주고, 클릭하면 그 자리에서 프로토타입을 불러옵니다.
+   *  Figma 화면은 무거워서 페이지를 열 때 바로 불러오지 않습니다.
+   * ------------------------------------------------------- */
+  function initFigmaEmbeds() {
+    $$('.media-frame[data-embed-src]').forEach((frame) => {
+      const src = (frame.getAttribute('data-embed-src') || '').trim();
+      const poster = $('.embed-poster', frame);
+      if (!/^https:\/\/embed\.figma\.com\//.test(src) || !poster) return;
+
+      poster.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey) return;   // 새 탭으로 열기는 그대로 둠
+        event.preventDefault();
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        iframe.title = frame.getAttribute('data-title') || 'Figma 프로토타입';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        frame.replaceChildren(iframe);
+        frame.classList.add('is-loaded');
+        iframe.focus();
+      }, { once: true });
+    });
+  }
+
+  /* ---------------------------------------------------------
    * Showreel — #home[data-showreel-id]가 있으면 버튼 표시
    * ------------------------------------------------------- */
   function initShowreel() {
@@ -814,6 +840,7 @@
   initSectionWipe();
   initCredits();
   initVideoEmbeds();
+  initFigmaEmbeds();
   initShowreel();
   initCopyEmail();
   initScrollTop();
