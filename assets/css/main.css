@@ -1769,12 +1769,12 @@ a.work-link:focus-visible .work-go {
 
 .screen-row {
   display: grid;
-  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
   gap: clamp(1.5rem, 1rem + 3vw, 4rem);
   align-items: center;
 }
 
-.screen-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
+.screen-row:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 380px); }
 .screen-row:nth-child(even) img { order: 2; }
 
 .screen-row img {
@@ -2499,4 +2499,47 @@ a.work-link:focus-visible .work-go {
   }
 
   .work-notice { padding: 4mm 5mm; }
+
+  /* 앱 화면 갤러리 — 한 줄에 셋, 작게 (화면에서는 한 줄에 하나) */
+  .work-screens { padding-block: 6mm 0; }
+  .screens-head { margin-bottom: 4mm; }
+
+  .screens-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6mm 5mm;
+  }
+
+  .screen-row,
+  .screen-row:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: start;
+    break-inside: avoid;
+  }
+
+  .screen-row img,
+  .screen-row:nth-child(even) img { order: 0; }
+
+  .screen-row figcaption,
+  .screen-row:nth-child(even) figcaption {
+    justify-self: stretch;
+    max-width: none;
+    padding-inline: 2mm;
+    font-size: 8.5pt;
+  }
+
+  .screen-row figcaption strong { margin-top: 1mm; font-size: 11pt; }
+  .screen-row figcaption p { margin-top: 1mm; }
+  .screen-points { display: none; }
+
+  /* Figma 프로토타입 — 종이·PDF에서는 누를 수 없으므로 미리보기 대신 주소 */
+  .work-prototype .media-frame--proto { display: none; }
+  .proto-note { margin-top: 0; text-align: left; }
+
+  .proto-note a::after {
+    content: " — " attr(href);
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    word-break: break-all;
+  }
 }
