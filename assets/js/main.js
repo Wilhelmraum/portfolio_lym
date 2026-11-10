@@ -653,8 +653,12 @@
       const poster = $('.embed-poster', frame);
       if (!/^https:\/\/embed\.figma\.com\//.test(src) || !poster) return;
 
+      // 좁은 화면에서는 틀 안의 앱 화면이 너무 작아 누르기 어려우므로 링크대로 새 창에서 엽니다.
+      const narrow = window.matchMedia('(max-width: 767.98px)');
+
       poster.addEventListener('click', (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey) return;   // 새 탭으로 열기는 그대로 둠
+        if (narrow.matches) return;
         event.preventDefault();
         const iframe = document.createElement('iframe');
         iframe.src = src;
@@ -664,7 +668,7 @@
         frame.replaceChildren(iframe);
         frame.classList.add('is-loaded');
         iframe.focus();
-      }, { once: true });
+      });
     });
   }
 

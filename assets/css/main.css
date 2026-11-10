@@ -1879,7 +1879,7 @@ a.work-link:focus-visible .work-go {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(17, 20, 25, 0.55), rgba(17, 20, 25, 0.05) 55%);
+  background: linear-gradient(to top, rgba(42, 22, 112, 0.6), rgba(42, 22, 112, 0) 20%);
 }
 
 .embed-label {
@@ -1894,7 +1894,18 @@ a.work-link:focus-visible .work-go {
   letter-spacing: 0.06em;
 }
 
-.embed-poster .yt-play { z-index: 1; }
+.embed-poster .yt-play {
+  z-index: 1;
+  top: 64%;   /* 미리보기 휴대폰의 로고를 가리지 않도록 아래쪽에 */
+}
+
+/* 좁은 화면에서는 새 창으로 열리므로 안내 문구도 바꿈 (initFigmaEmbeds) */
+.embed-label-narrow { display: none; }
+
+@media (max-width: 767.98px) {
+  .embed-label-wide { display: none; }
+  .embed-label-narrow { display: inline; }
+}
 
 .embed-poster:hover img,
 .embed-poster:focus-visible img { transform: scale(1.02); }
