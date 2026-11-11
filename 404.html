@@ -2,6 +2,7 @@
 <html lang="ko">
 
 <head>
+  <!-- ===== HEAD START ===== -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NO SIGNAL — 이영민</title>
@@ -218,15 +219,21 @@
       .spec { display: none; }
     }
   </style>
+  <!-- ===== HEAD END ===== -->
 </head>
 
 <body>
 
+  <!-- ===== BODY START ===== -->
+
+  <!-- ===== Top bar (레터박스 위) ===== -->
   <header class="bar bar--top">
     <span>Video Editing &amp; Content Design</span>
     <span>Error 404</span>
   </header>
+  <!-- ===== Top bar END ===== -->
 
+  <!-- ===== MAIN START: NO SIGNAL 화면 ===== -->
   <main class="frame">
     <div class="colorbars" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -252,11 +259,14 @@
       </a>
     </div>
   </main>
+  <!-- ===== MAIN END ===== -->
 
+  <!-- ===== Bottom bar (레터박스 아래) ===== -->
   <footer class="bar bar--bottom">
     <span class="id"><strong>이영민</strong><em>Yeongmin Lee</em></span>
     <span>00:00:00:00 — Standby</span>
   </footer>
+  <!-- ===== Bottom bar END ===== -->
 
   <script>
     // 로컬에서 미리 볼 때는 배포 주소 대신 로컬 첫 페이지로
@@ -264,6 +274,8 @@
       document.querySelector('[data-home]').setAttribute('href', '/index.html');
     }
   </script>
+
+  <!-- ===== BODY END ===== -->
 
 </body>
 
