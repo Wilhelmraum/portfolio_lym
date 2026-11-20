@@ -1,0 +1,35 @@
+.ps-nav {display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; margin:1.5rem 0 2rem; padding-block:.8rem; border-block:1px solid var(--line)}
+.ps-nav a {font-size:.95rem; text-underline-offset:.3em}
+.ps-nav a:hover,.ps-nav a:focus-visible {text-decoration:underline}
+.ps-project {scroll-margin-top:5rem}
+.ps-project figure {margin:0; min-width:0}
+.ps-project img {display:block; width:100%; height:auto}
+.ps-project figcaption {padding-top:.55rem; font-size:.875rem; color:var(--muted)}
+.ps-pair,.ps-materials,.ps-cards,.ps-note,.ps-process,.ps-split {display:grid; gap:clamp(.8rem,2vw,1.7rem)}
+.ps-pair {grid-template-columns:1fr 1fr}
+.ps-pair img {width:100%; aspect-ratio:2480/3508; object-fit:contain; background:#161819}
+.ps-zoom {display:block; cursor:zoom-in}
+.ps-note,.ps-process {grid-template-columns:minmax(0,1fr) minmax(0,1.55fr); margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--line)}
+.ps-two {grid-template-columns:repeat(2,minmax(0,1fr))}
+.ps-two img {aspect-ratio:4/3; object-fit:contain; background:#22252a}
+.ps-project h2 {font-size:clamp(1.5rem,2.5vw,2.4rem); line-height:1.23; letter-spacing:-.04em}
+.ps-project h3 {font-size:1.12rem; margin-bottom:.6rem}
+.ps-project p {line-height:1.8; word-break:keep-all; overflow-wrap:anywhere}
+.ps-split {grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:clamp(1.5rem,4vw,4rem)}
+.ps-story h2 {margin:.55rem 0 1rem}
+.ps-story h3 {margin-top:1.75rem}
+.ps-four {grid-template-columns:repeat(4,minmax(0,1fr)); gap:.6rem; margin-top:1.25rem}
+.ps-four img {aspect-ratio:1; object-fit:contain; background:#eeeae4}
+.ps-intro {max-width:46rem; margin-bottom:2rem}
+.ps-cards {grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:1.6rem}
+@media(max-width:760px){
+.ps-split,.ps-note,.ps-process {grid-template-columns:1fr}
+.ps-split .ps-story {grid-row:1}
+.ps-cards {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+.ps-pair,.ps-cards {grid-template-columns:1fr}
+.ps-four {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+.work-hero #etiquette {padding-block:0}
