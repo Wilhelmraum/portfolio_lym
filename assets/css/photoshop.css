@@ -33,3 +33,20 @@
 }
 
 .work-hero #etiquette {padding-block:0}
+.ps-tabs {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.ps-tabs a {
+  padding: .65rem .2rem;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+}
+.ps-tabs a[aria-current="page"] {
+  color: inherit;
+  font-weight: 700;
+  border-bottom-color: currentColor;
+}
+.ps-tabs a:hover, .ps-tabs a:focus-visible { text-decoration: underline; }
