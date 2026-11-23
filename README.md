@@ -10,6 +10,7 @@ index.html                  HOME · WORKS · ABOUT ME · SKILLS & BACKGROUND · 
 portfolio-details-1.html    V01 동백커피 홍보영상
 portfolio-details-2.html    V02 운무산맥 제품 광고영상
 portfolio-details-3.html    V03 브랜드 스토리텔링 광고영상 (완성 후 공개)
+portfolio-details-9.html    V04 [상시모집] 고수익 카페알바 — AI 단편 애니메이션 프리비즈 (이미지: assets/img/works/sangsi/)
 portfolio-details-6.html    D01 제품 상세페이지 디자인
 portfolio-details-8.html    D02 문화생활 카드뉴스
 portfolio-details-7.html    D03 공익 포스터 디자인
