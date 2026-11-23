@@ -8,14 +8,14 @@
 ```
 index.html                  HOME · WORKS · ABOUT ME · SKILLS & BACKGROUND · CONTACT
 portfolio-details-1.html    V01 동백커피 홍보영상
-portfolio-details-2.html    V02 운무산맥 제품 광고영상
-portfolio-details-3.html    V03 브랜드 스토리텔링 광고영상 (완성 후 공개)
-portfolio-details-9.html    V04 [상시모집] 고수익 카페알바 — AI 단편 애니메이션 프리비즈 (이미지: assets/img/works/sangsi/)
+portfolio-details-9.html    V02 [상시모집] 고수익 카페알바 — AI 단편 애니메이션 프리비즈 (이미지: assets/img/works/sangsi/)
+portfolio-details-2.html    V03 운무산맥 제품 광고영상
+portfolio-details-3.html    (목록에서 뺌) 브랜드 스토리텔링 광고영상 — 완성 후 다시 넣을 자리
 portfolio-details-6.html    D01 제품 상세페이지 디자인
 portfolio-details-8.html    D02 문화생활 카드뉴스
 portfolio-details-7.html    D03 공익 포스터 디자인
 portfolio-details-5.html    D04 Figma 앱 UI 디자인
-portfolio-details-4.html    D05 캐릭터 디자인 (준비 중)
+portfolio-details-4.html    (목록에서 뺌) 캐릭터 디자인 — 완성 후 다시 넣을 자리
 404.html                    없는 주소로 들어왔을 때 'NO SIGNAL' 화면 (스타일 내장, 절대 주소 사용)
 assets/css/main.css         디자인 토큰(색상·서체·간격)과 전체 스타일
 assets/js/main.js           메뉴, 타임코드, 등장 효과, 미리보기, YouTube 연결
