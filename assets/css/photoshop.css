@@ -12,6 +12,7 @@
 .ps-note,.ps-process {grid-template-columns:minmax(0,1fr) minmax(0,1.55fr); margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--line)}
 .ps-two {grid-template-columns:repeat(2,minmax(0,1fr))}
 .ps-two img {aspect-ratio:4/3; object-fit:contain; background:#22252a}
+.ps-two.is-square img {aspect-ratio:1}
 .ps-project h2 {font-size:clamp(1.5rem,2.5vw,2.4rem); line-height:1.23; letter-spacing:-.04em}
 .ps-project h3 {font-size:1.12rem; margin-bottom:.6rem}
 .ps-project p {line-height:1.8; word-break:keep-all; overflow-wrap:anywhere}
