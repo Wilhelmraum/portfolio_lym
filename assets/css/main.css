@@ -438,6 +438,19 @@ section {
   transition: color var(--dur) var(--ease);
 }
 
+/* 터치 화면: 보이는 모양은 그대로 두고 누르는 영역만 위아래로 넓힘 (권장 약 44px) */
+@media (pointer: coarse) {
+  .sidebar-mail,
+  .text-link { position: relative; }
+
+  .sidebar-mail::before,
+  .text-link::before {
+    content: "";
+    position: absolute;
+    inset: -12px -6px;
+  }
+}
+
 .sidebar-mail .bi {
   flex: none;
   font-size: 0.6875rem;
@@ -977,7 +990,7 @@ section {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-media img { animation: fade-in 1.6s var(--ease) 0.3s both; }
+  .hero-media img { animation: fade-in 0.8s var(--ease) both; }
 }
 
 /* 프로그램 모니터 오버레이 — 세이프 에어리어 모서리, 상태 표시, 재생 바 */

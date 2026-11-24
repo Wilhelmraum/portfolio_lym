@@ -33,7 +33,7 @@
   <script>
     (function (html) {
       html.classList.add('is-loading');
-      setTimeout(function () { html.classList.remove('is-loading'); }, 1500);
+      setTimeout(function () { html.classList.remove('is-loading'); }, 600);   // 서체가 늦어도 첫 화면이 오래 비지 않도록
       if (location.hash) {
         html.style.scrollBehavior = 'auto';
         addEventListener('load', function () { setTimeout(function () { html.style.scrollBehavior = ''; }, 0); });
@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
 
   <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="assets/css/main.css?v=20261110-8">
+  <link rel="stylesheet" href="assets/css/main.css?v=20261124">
   <!-- ===== HEAD END ===== -->
 </head>
 
